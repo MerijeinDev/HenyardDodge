@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sky_blue">
+
+    <henyard.dodgerush.dewpond.game.GameView
+        android:id="@+id/gameView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- HUD -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/hud"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="14dp">
+
+        <ImageView
+            android:id="@+id/btnPause"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_pause"
+            android:src="@drawable/btn_pause"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <henyard.dodgerush.dewpond.widget.OutlineTextView
+            android:id="@+id/timerText"
+            style="@style/Text.Henyard.Outlined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/timer_pill"
+            android:minWidth="120dp"
+            android:gravity="center"
+            android:text="@string/time_zero"
+            android:textSize="@dimen/text_play"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/hearts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/timerText"
+            app:layout_constraintStart_toStartOf="@id/timerText"
+            app:layout_constraintTop_toBottomOf="@id/timerText">
+
+            <ImageView
+                android:id="@+id/heart1"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginHorizontal="3dp"
+                android:contentDescription="@null"
+                android:src="@drawable/heart_active" />
+
+            <ImageView
+                android:id="@+id/heart2"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginHorizontal="3dp"
+                android:contentDescription="@null"
+                android:src="@drawable/heart_active" />
+
+            <ImageView
+                android:id="@+id/heart3"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginHorizontal="3dp"
+                android:contentDescription="@null"
+                android:src="@drawable/heart_active" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/scorePlate"
+            android:layout_width="96dp"
+            android:layout_height="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/game_score_plate" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <henyard.dodgerush.dewpond.widget.OutlineTextView
+                    style="@style/Text.Henyard.Outlined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/score_label"
+                    android:textSize="14sp" />
+
+                <henyard.dodgerush.dewpond.widget.OutlineTextView
+                    android:id="@+id/scoreText"
+                    style="@style/Text.Henyard.Outlined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="@dimen/text_score" />
+            </LinearLayout>
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Pause overlay -->
+    <FrameLayout
+        android:id="@+id/pauseOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/scrim"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <henyard.dodgerush.dewpond.widget.OutlineTextView
+                style="@style/Text.Henyard.Outlined"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/paused"
+                android:textSize="@dimen/text_title" />
+
+            <include
+                android:id="@+id/btnResume"
+                layout="@layout/widget_button_yellow"
+                android:layout_width="220dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="20dp" />
+
+            <include
+                android:id="@+id/btnPauseMenu"
+                layout="@layout/widget_button_blue"
+                android:layout_width="220dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="14dp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Game over / win overlay -->
+    <FrameLayout
+        android:id="@+id/resultOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/scrim"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:layout_width="320dp"
+            android:layout_height="380dp"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/win_over_plate" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="40dp">
+
+                <henyard.dodgerush.dewpond.widget.OutlineTextView
+                    android:id="@+id/resultTitle"
+                    style="@style/Text.Henyard.Outlined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/you_win"
+                    android:textSize="40sp" />
+
+                <LinearLayout
+                    android:id="@+id/resultStars"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/star1"
+                        android:layout_width="46dp"
+                        android:layout_height="46dp"
+                        android:layout_marginHorizontal="4dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/star_inactive" />
+
+                    <ImageView
+                        android:id="@+id/star2"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_marginHorizontal="4dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/star_inactive" />
+
+                    <ImageView
+                        android:id="@+id/star3"
+                        android:layout_width="46dp"
+                        android:layout_height="46dp"
+                        android:layout_marginHorizontal="4dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/star_inactive" />
+                </LinearLayout>
+
+                <henyard.dodgerush.dewpond.widget.OutlineTextView
+                    android:id="@+id/resultScore"
+                    style="@style/Text.Henyard.Outlined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/score_label"
+                    android:textSize="24sp" />
+
+                <include
+                    android:id="@+id/btnRetry"
+                    layout="@layout/widget_button_yellow"
+                    android:layout_width="200dp"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="18dp" />
+
+                <include
+                    android:id="@+id/btnResultMenu"
+                    layout="@layout/widget_button_blue"
+                    android:layout_width="200dp"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="12dp" />
+            </LinearLayout>
+        </FrameLayout>
+    </FrameLayout>
+</FrameLayout>

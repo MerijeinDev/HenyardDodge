@@ -2,4 +2,23 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="sky_blue">#FF5FB8E8</color>
+    <color name="sky_blue_dark">#FF3E9BD1</color>
+
+    <color name="wood_brown">#FF8B5A2B</color>
+    <color name="wood_brown_dark">#FF5E3A17</color>
+
+    <color name="btn_yellow">#FFFFBE1F</color>
+    <color name="btn_yellow_dark">#FFE8890C</color>
+
+    <color name="level_green">#FF7BB93F</color>
+    <color name="level_green_dark">#FF5C9128</color>
+
+    <color name="cream">#FFFFF3D6</color>
+    <color name="coin_gold">#FFFFC83D</color>
+
+    <color name="text_brown">#FF6B3E12</color>
+    <color name="text_stroke">#FFC34800</color>
+    <color name="scrim">#99000000</color>
 </resources>

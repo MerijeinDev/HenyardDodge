@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sky_blue">
+
+    <!-- Scaled to width, top-aligned: view aspect == image aspect (1648:3668), so no distortion.
+         The vertical position of any pixel now depends only on screen width, which lets the
+         title (anchored to this view below) track the chicken deterministically across screens.
+         On devices taller than this aspect (>2.226) the bottom is cropped off-screen as intended. -->
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnSettings"
+        android:layout_width="@dimen/top_bar_size"
+        android:layout_height="@dimen/top_bar_size"
+        android:layout_marginStart="@dimen/screen_margin"
+        android:layout_marginTop="@dimen/screen_margin"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/cd_settings"
+        android:src="@drawable/btn_settings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/coinPlate"
+        android:layout_width="@dimen/coin_plate_width"
+        android:layout_height="@dimen/coin_plate_height"
+        android:layout_marginTop="@dimen/screen_margin"
+        android:layout_marginEnd="@dimen/screen_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/cd_coins"
+            android:scaleType="fitXY"
+            android:src="@drawable/coin_with_plate" />
+
+        <henyard.dodgerush.dewpond.widget.OutlineTextView
+            android:id="@+id/coinsText"
+            style="@style/Text.Henyard.Outlined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="14dp"
+            android:text="@string/default_coins"
+            android:textSize="@dimen/text_coins" />
+    </FrameLayout>
+
+
+    <!-- Anchored to the background (not the screen top) and positioned by bias: width is 70% of
+         screen, height follows the asset's aspect via adjustViewBounds. bias=0.18 places the
+         title's center at ~24% of the background height, clear above the chicken's comb (~42%).
+         Because both the title and the chicken scale with screen width, this gap is constant. -->
+    <ImageView
+        android:id="@+id/titleGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:src="@drawable/title_henyard_dodge"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.18" />
+
+    <FrameLayout
+        android:id="@+id/btnPlay"
+        android:layout_width="@dimen/play_button_width"
+        android:layout_height="@dimen/play_button_height"
+        android:layout_marginBottom="24dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toTopOf="@id/navRow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/play"
+            android:scaleType="fitXY"
+            android:src="@drawable/btn_play" />
+
+        <henyard.dodgerush.dewpond.widget.OutlineTextView
+            style="@style/Text.Henyard.Outlined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:text="@string/play"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:textSize="@dimen/text_play" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/navRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="68dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/btnShop"
+            android:layout_width="@dimen/menu_nav_button_size"
+            android:layout_height="@dimen/menu_nav_button_size"
+            android:layout_marginHorizontal="@dimen/menu_nav_button_gap"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_shop"
+            android:src="@drawable/btn_shop" />
+
+        <ImageView
+            android:id="@+id/btnAchievements"
+            android:layout_width="@dimen/menu_nav_button_size"
+            android:layout_height="@dimen/menu_nav_button_size"
+            android:layout_marginHorizontal="@dimen/menu_nav_button_gap"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_achievements"
+            android:src="@drawable/btn_achievements" />
+
+        <ImageView
+            android:id="@+id/btnProfile"
+            android:layout_width="@dimen/menu_nav_button_size"
+            android:layout_height="@dimen/menu_nav_button_size"
+            android:layout_marginHorizontal="@dimen/menu_nav_button_gap"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_profile"
+            android:src="@drawable/btn_profile" />
+
+        <ImageView
+            android:id="@+id/btnLeaderboard"
+            android:layout_width="@dimen/menu_nav_button_size"
+            android:layout_height="@dimen/menu_nav_button_size"
+            android:layout_marginHorizontal="@dimen/menu_nav_button_gap"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_leaderboard"
+            android:src="@drawable/btn_leaderboard" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

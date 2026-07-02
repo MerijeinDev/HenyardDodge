@@ -1,3 +1,41 @@
 <resources>
     <string name="app_name">HenyardDodge</string>
+
+    <string name="title_line1">HENYARD</string>
+    <string name="title_line2">DODGE</string>
+    <string name="play">PLAY</string>
+    <string name="loading">Loading\u2026</string>
+    <string name="loading_percent">Loading %1$d%%</string>
+
+    <string name="cd_settings">Settings</string>
+    <string name="cd_shop">Shop</string>
+    <string name="cd_leaderboard">Leaderboard</string>
+    <string name="cd_profile">Profile</string>
+    <string name="cd_achievements">Achievements</string>
+    <string name="cd_coins">Coins</string>
+    <string name="cd_hero">Hero chicken</string>
+    <string name="cd_logo">Henyard Dodge logo</string>
+
+    <string name="default_coins">1,234</string>
+
+    <string name="score_label">SCORE</string>
+    <string name="cd_pause">Pause</string>
+    <string name="time_zero">00:00</string>
+
+    <string name="paused">PAUSED</string>
+    <string name="resume">RESUME</string>
+    <string name="menu">MENU</string>
+    <string name="retry">RETRY</string>
+    <string name="game_over">GAME OVER</string>
+    <string name="you_win">YOU WIN!</string>
+
+    <string name="no_internet_title">NO INTERNET</string>
+    <string name="no_internet_message">Please, check your internet\nconnection and restart</string>
+    <string name="restart">RESTART</string>
+    <string name="cd_no_internet">No internet connection</string>
+
+    <string name="notifications_message">Allow notifications about bonuses and promos. Stay tuned with best offers from our casino.</string>
+    <string name="notif_allow">I want!</string>
+    <string name="notif_deny">Skip</string>
+    <string name="cd_notifications">Notifications</string>
 </resources>

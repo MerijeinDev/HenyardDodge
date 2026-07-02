@@ -5,9 +5,7 @@ plugins {
 android {
     namespace = "henyard.dodgerush.dewpond"
     compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
+        version = release(37)
     }
 
     defaultConfig {
@@ -49,7 +47,6 @@ dependencies {
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.datastore.preferences)
     implementation(libs.glide)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

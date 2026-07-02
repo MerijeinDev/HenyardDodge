@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Text.Henyard" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/fredoka</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Text.Henyard.Title">
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textColor">@color/cream</item>
+        <item name="android:fontVariationSettings">"'wght' 700"</item>
+        <item name="android:shadowColor">@color/wood_brown_dark</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">4</item>
+        <item name="android:shadowRadius">6</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <style name="Text.Henyard.Play">
+        <item name="font">@font/fredoka</item>
+        <item name="android:textSize">@dimen/text_play</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:shadowColor">@color/btn_yellow_dark</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">3</item>
+        <item name="android:letterSpacing">0.08</item>
+    </style>
+
+    <style name="Text.Henyard.Coins">
+        <item name="android:textSize">@dimen/text_coins</item>
+        <item name="android:textColor">@color/text_brown</item>
+    </style>
+
+    <style name="Text.Henyard.Score">
+        <item name="android:textSize">@dimen/text_score</item>
+        <item name="android:textColor">@color/text_brown</item>
+    </style>
+
+    <!-- Outlined cartoon text: white/beige fill + #C34800 stroke.
+         Apply ONLY to henyard.dodgerush.dewpond.widget.OutlineTextView.
+         Swap android:textColor to @color/cream for the beige variant. -->
+    <style name="Text.Henyard.Outlined" parent="Text.Henyard">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontVariationSettings">"'wght' 700"</item>
+        <item name="outlineColor">@color/text_stroke</item>
+        <item name="outlineWidth">4dp</item>
+        <item name="fontFamily">@font/fredoka</item>
+    </style>
+
+    <!-- Splash running chicken position/size.
+         Portrait values here; landscape override lives in values-land/styles.xml. -->
+    <style name="SplashChicken">
+        <item name="android:layout_width">280dp</item>
+        <item name="android:layout_height">280dp</item>
+        <item name="android:layout_gravity">bottom|center_horizontal</item>
+    </style>
+</resources>
