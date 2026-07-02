@@ -38,6 +38,23 @@
             app:destination="@id/mainMenuFragment"
             app:popUpTo="@id/notificationsFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_notifications_to_onboarding"
+            app:destination="@id/onboardingFragment"
+            app:popUpTo="@id/notificationsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="henyard.dodgerush.dewpond.ui.onboarding.OnboardingFragment"
+        android:label="Onboarding"
+        tools:layout="@layout/fragment_onboarding">
+        <action
+            android:id="@+id/action_onboarding_to_menu"
+            app:destination="@id/mainMenuFragment"
+            app:popUpTo="@id/onboardingFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

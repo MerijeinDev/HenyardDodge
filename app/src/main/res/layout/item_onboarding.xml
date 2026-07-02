@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp">
+
+        <ImageView
+            android:id="@+id/imageOb"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/cd_onboarding"
+            android:scaleType="fitCenter" />
+
+        <FrameLayout
+            android:layout_width="330dp"
+            android:layout_height="132dp"
+            android:layout_marginTop="14dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/no_internet_table" />
+
+            <henyard.dodgerush.dewpond.widget.OutlineTextView
+                android:id="@+id/textOb"
+                style="@style/Text.Henyard.Outlined"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingHorizontal="40dp"
+                android:textSize="17sp"
+                app:outlineWidth="3dp" />
+        </FrameLayout>
+
+        <include
+            android:id="@+id/btnNext"
+            layout="@layout/widget_button_yellow"
+            android:layout_width="210dp"
+            android:layout_height="82dp"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+</FrameLayout>

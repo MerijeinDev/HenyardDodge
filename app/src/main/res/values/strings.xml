@@ -39,4 +39,11 @@
     <string name="notif_allow">I want!</string>
     <string name="notif_deny">Skip</string>
     <string name="cd_notifications">Notifications</string>
+
+    <string name="onboarding_1">Drag the hen around the yard with your finger.</string>
+    <string name="onboarding_2">Dodge the falling hay, rolling barrels and the fox! One hit costs a life.</string>
+    <string name="onboarding_3">Grab grain and grab power-ups. Survive until the timer runs out to win!</string>
+    <string name="next">NEXT</string>
+    <string name="start">START</string>
+    <string name="cd_onboarding">How to play</string>
 </resources>

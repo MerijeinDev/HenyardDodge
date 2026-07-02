@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import henyard.dodgerush.dewpond.R
 import henyard.dodgerush.dewpond.databinding.FragmentNotificationsBinding
 import henyard.dodgerush.dewpond.ui.base.ReinflatingFragment
+import henyard.dodgerush.dewpond.util.AppPrefs
 
 /**
  * "Allow notifications" screen, shown after loading when the device is online.
@@ -43,8 +44,12 @@ class NotificationsFragment : ReinflatingFragment() {
     private fun proceedToMenu() {
         if (!isAdded) return
         val nav = findNavController()
-        if (nav.currentDestination?.id == R.id.notificationsFragment) {
+        if (nav.currentDestination?.id != R.id.notificationsFragment) return
+        // First launch shows the how-to-play onboarding before the menu.
+        if (AppPrefs(requireContext()).onboardingSeen) {
             nav.navigate(R.id.action_notifications_to_menu)
+        } else {
+            nav.navigate(R.id.action_notifications_to_onboarding)
         }
     }
 }
