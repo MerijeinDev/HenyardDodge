@@ -49,6 +49,13 @@
         <item name="fontFamily">@font/fredoka</item>
     </style>
 
+    <style name="Text.Henyard.OutlinedYellow" parent="Text.Henyard">
+        <item name="android:textColor">@color/white</item>
+        <item name="outlineColor">@color/text_stroke</item>
+        <item name="outlineWidth">2dp</item>
+        <item name="fontFamily">@font/fredoka</item>
+    </style>
+
     <!-- Splash running chicken position/size.
          Portrait values here; landscape override lives in values-land/styles.xml. -->
     <style name="SplashChicken">

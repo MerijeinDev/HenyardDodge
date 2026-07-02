@@ -18,9 +18,8 @@
         android:gravity="center"
         android:orientation="vertical">
         <FrameLayout
-            android:layout_width="340dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="28dp">
+            android:layout_width="300dp"
+            android:layout_height="52dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -42,8 +41,9 @@
 
     <ImageView
         android:id="@+id/running_chicken"
+        android:layout_width="280dp"
+        android:layout_height="320dp"
         style="@style/SplashChicken"
-        android:adjustViewBounds="true"
         android:contentDescription="@null"
         android:scaleType="fitCenter"
         android:src="@drawable/running_chicken" />

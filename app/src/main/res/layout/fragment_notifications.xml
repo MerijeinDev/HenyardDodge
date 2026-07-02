@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="100dp"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingHorizontal="24dp">
@@ -61,7 +61,7 @@
 
     <ImageView
         android:layout_width="280dp"
-        android:layout_height="280dp"
+        android:layout_height="320dp"
         android:layout_gravity="bottom|center_horizontal"
         android:adjustViewBounds="true"
         android:contentDescription="@string/cd_notifications"

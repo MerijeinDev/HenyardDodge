@@ -32,6 +32,7 @@
     <string name="no_internet_title">NO INTERNET</string>
     <string name="no_internet_message">Please, check your internet\nconnection and restart</string>
     <string name="restart">RESTART</string>
+    <string name="checking">CHECKING</string>
     <string name="cd_no_internet">No internet connection</string>
 
     <string name="notifications_message">Allow notifications about bonuses and promos. Stay tuned with best offers from our casino.</string>

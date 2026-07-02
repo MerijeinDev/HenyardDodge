@@ -68,8 +68,8 @@
         android:label="NoInternet"
         tools:layout="@layout/fragment_no_internet">
         <action
-            android:id="@+id/action_no_internet_to_splash"
-            app:destination="@id/splashFragment"
+            android:id="@+id/action_no_internet_to_notifications"
+            app:destination="@id/notificationsFragment"
             app:popUpTo="@id/noInternetFragment"
             app:popUpToInclusive="true" />
     </fragment>

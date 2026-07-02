@@ -74,7 +74,7 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_width="200dp"
+        android:layout_width="230dp"
         android:layout_height="280dp"
         android:layout_gravity="bottom|end"
         android:adjustViewBounds="true"
