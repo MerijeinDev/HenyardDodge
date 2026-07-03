@@ -27,7 +27,9 @@ class MainMenuFragment : BaseFragment(R.layout.fragment_main_menu) {
         binding.btnShop.setOnClickListener {
             findNavController().navigate(R.id.action_menu_to_shop)
         }
-        binding.btnAchievements.setOnClickListener { notImplemented("Achievements") }
+        binding.btnAchievements.setOnClickListener {
+            findNavController().navigate(R.id.action_menu_to_achievements)
+        }
         binding.btnProfile.setOnClickListener { notImplemented("Profile") }
         binding.btnLeaderboard.setOnClickListener { notImplemented("Leaderboard") }
     }

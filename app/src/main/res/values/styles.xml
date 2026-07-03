@@ -92,6 +92,24 @@
         <item name="outlineWidth">2dp</item>
     </style>
 
+    <!-- Achievement row title: dark-brown, bold, numbered label. -->
+    <style name="Text.Henyard.AchTitle">
+        <item name="android:textSize">@dimen/text_ach_title</item>
+        <item name="android:textColor">@color/ach_text</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!-- Achievement row description: dark-brown, semi-bold, single line. -->
+    <style name="Text.Henyard.AchDesc">
+        <item name="android:textSize">@dimen/text_ach_desc</item>
+        <item name="android:textColor">@color/ach_text</item>
+        <item name="android:fontFamily">@font/fredoka_semibold</item>
+        <item name="fontFamily">@font/fredoka_semibold</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
     <!-- Outlined cartoon text: white/beige fill + #C34800 stroke.
          Apply ONLY to henyard.dodgerush.dewpond.widget.OutlineTextView.
          Swap android:textColor to @color/cream for the beige variant. -->

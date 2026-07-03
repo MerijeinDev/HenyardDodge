@@ -18,4 +18,6 @@
     <dimen name="text_shop_title">13sp</dimen>
     <dimen name="text_shop_desc">11sp</dimen>
     <dimen name="text_shop_price">14sp</dimen>
+    <dimen name="text_ach_title">15sp</dimen>
+    <dimen name="text_ach_desc">11sp</dimen>
 </resources>

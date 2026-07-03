@@ -72,4 +72,29 @@
     <string name="shop_grain_magnet_desc">Grain attracts from distance</string>
     <string name="shop_long_shield">Long Shield</string>
     <string name="shop_long_shield_desc">Shield lasts 2x longer</string>
+
+    <string name="achievements">ACHIEVEMENTS</string>
+    <string name="cd_achievement_done">Completed</string>
+    <string name="ach_numbered_title">%1$d. %2$s</string>
+
+    <string name="ach_first_dodge">First Dodge</string>
+    <string name="ach_first_dodge_desc">Finish your first level.</string>
+    <string name="ach_untouchable">Untouchable</string>
+    <string name="ach_untouchable_desc">Finish a level without getting hit.</string>
+    <string name="ach_grain_eater">Grain Eater</string>
+    <string name="ach_grain_eater_desc">Collect 5000 grains total.</string>
+    <string name="ach_survivor">Survivor</string>
+    <string name="ach_survivor_desc">Survive 30 minutes total across all runs.</string>
+    <string name="ach_close_call">Close Call</string>
+    <string name="ach_close_call_desc">Dodge 1000 hazards total.</string>
+    <string name="ach_yard_boss">Yard Boss</string>
+    <string name="ach_yard_boss_desc">Beat level 20.</string>
+    <string name="ach_dodge_king">Dodge King</string>
+    <string name="ach_dodge_king_desc">Beat all 40 levels.</string>
+    <string name="ach_shielded">Shielded</string>
+    <string name="ach_shielded_desc">Block 100 hits with shields total.</string>
+    <string name="ach_coin_dodger">Coin Dodger</string>
+    <string name="ach_coin_dodger_desc">Collect 5000 coins total.</string>
+    <string name="ach_fox_foiler">Fox Foiler</string>
+    <string name="ach_fox_foiler_desc">Dodge 200 fox dashes total.</string>
 </resources>
