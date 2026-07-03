@@ -53,4 +53,7 @@
     <string name="default_nickname">Player</string>
     <string name="cd_back">Back</string>
     <string name="cd_hen_selected">Selected</string>
+
+    <string name="select_level">Select Level</string>
+    <string name="cd_locked_level">Locked level</string>
 </resources>

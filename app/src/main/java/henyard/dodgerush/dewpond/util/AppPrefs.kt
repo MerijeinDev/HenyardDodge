@@ -23,10 +23,31 @@ class AppPrefs(context: Context) {
         get() = prefs.getString(KEY_NICKNAME, "").orEmpty()
         set(value) = prefs.edit().putString(KEY_NICKNAME, value).apply()
 
+    /** Highest level the player has unlocked (level 1 is always available). */
+    var unlockedLevel: Int
+        get() = prefs.getInt(KEY_UNLOCKED_LEVEL, 1)
+        set(value) = prefs.edit().putInt(KEY_UNLOCKED_LEVEL, value).apply()
+
+    /** Best star rating (0..3) earned on a given level; 0 means not yet cleared. */
+    fun starsForLevel(level: Int): Int = prefs.getInt(KEY_STARS_PREFIX + level, 0)
+
+    /**
+     * Records the outcome of finishing [level] with [stars] (keeping the best
+     * rating) and unlocks the next level when the current frontier is cleared.
+     */
+    fun recordLevelWin(level: Int, stars: Int) {
+        val best = maxOf(starsForLevel(level), stars.coerceIn(0, 3))
+        val editor = prefs.edit().putInt(KEY_STARS_PREFIX + level, best)
+        if (level >= unlockedLevel) editor.putInt(KEY_UNLOCKED_LEVEL, level + 1)
+        editor.apply()
+    }
+
     private companion object {
         const val NAME = "henyard_prefs"
         const val KEY_ONBOARDING_SEEN = "onboarding_seen"
         const val KEY_HEN_INDEX = "hen_index"
         const val KEY_NICKNAME = "nickname"
+        const val KEY_UNLOCKED_LEVEL = "unlocked_level"
+        const val KEY_STARS_PREFIX = "stars_level_"
     }
 }

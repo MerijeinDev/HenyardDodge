@@ -75,7 +75,17 @@
         android:label="MainMenu"
         tools:layout="@layout/fragment_main_menu">
         <action
-            android:id="@+id/action_menu_to_game"
+            android:id="@+id/action_menu_to_level_select"
+            app:destination="@id/levelSelectFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/levelSelectFragment"
+        android:name="henyard.dodgerush.dewpond.ui.level.LevelSelectFragment"
+        android:label="LevelSelect"
+        tools:layout="@layout/fragment_level_select">
+        <action
+            android:id="@+id/action_level_to_game"
             app:destination="@id/gameFragment" />
     </fragment>
 
@@ -84,6 +94,10 @@
         android:name="henyard.dodgerush.dewpond.ui.game.GameFragment"
         android:label="Game"
         tools:layout="@layout/fragment_game">
+        <argument
+            android:name="level"
+            android:defaultValue="1"
+            app:argType="integer" />
         <action
             android:id="@+id/action_game_retry"
             app:destination="@id/gameFragment"

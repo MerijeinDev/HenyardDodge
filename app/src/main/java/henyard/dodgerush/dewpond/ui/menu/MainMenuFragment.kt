@@ -18,7 +18,7 @@ class MainMenuFragment : BaseFragment(R.layout.fragment_main_menu) {
         val binding = FragmentMainMenuBinding.bind(view)
 
         binding.btnPlay.setOnClickListener {
-            findNavController().navigate(R.id.action_menu_to_game)
+            findNavController().navigate(R.id.action_menu_to_level_select)
         }
         binding.btnSettings.setOnClickListener { notImplemented("Settings") }
         binding.btnShop.setOnClickListener { notImplemented("Shop") }

@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import henyard.dodgerush.dewpond.R
 import henyard.dodgerush.dewpond.databinding.FragmentGameBinding
 import henyard.dodgerush.dewpond.game.GameView
 import henyard.dodgerush.dewpond.game.HenCatalog
+import henyard.dodgerush.dewpond.game.Levels
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
+import henyard.dodgerush.dewpond.ui.level.LevelSelectFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
 
 /**
@@ -21,13 +24,18 @@ class GameFragment : BaseFragment(R.layout.fragment_game), GameView.Listener {
     private val binding get() = _binding!!
 
     private lateinit var heartViews: List<ImageView>
+    private var level = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentGameBinding.bind(view)
 
+        level = Levels.clamp(arguments?.getInt(LevelSelectFragment.ARG_LEVEL, 1) ?: 1)
+
         heartViews = listOf(binding.heart1, binding.heart2, binding.heart3)
 
+        binding.gameView.level = level
+        binding.gameView.levelDurationMs = Levels.durationMs(level)
         binding.gameView.heroDrawableRes =
             HenCatalog.spriteFor(AppPrefs(requireContext()).selectedHenIndex)
         binding.gameView.listener = this
@@ -71,7 +79,10 @@ class GameFragment : BaseFragment(R.layout.fragment_game), GameView.Listener {
     }
 
     private fun retry() {
-        findNavController().navigate(R.id.action_game_retry)
+        findNavController().navigate(
+            R.id.action_game_retry,
+            bundleOf(LevelSelectFragment.ARG_LEVEL to level)
+        )
     }
 
     // ---- GameView.Listener ----
@@ -92,6 +103,7 @@ class GameFragment : BaseFragment(R.layout.fragment_game), GameView.Listener {
     }
 
     override fun onGameOver(score: Int, coins: Int, won: Boolean, stars: Int) {
+        if (won) AppPrefs(requireContext()).recordLevelWin(level, stars)
         binding.resultTitle.setText(if (won) R.string.you_win else R.string.game_over)
         binding.resultScore.text = getString(R.string.score_label) + "  " + score
         val starViews = listOf(binding.star1, binding.star2, binding.star3)
