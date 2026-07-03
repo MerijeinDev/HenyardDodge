@@ -25,4 +25,8 @@
     <dimen name="text_profile_stat_label">14sp</dimen>
     <dimen name="text_profile_value">20sp</dimen>
     <dimen name="text_profile_edit">16sp</dimen>
+    <dimen name="text_lb_rank">16sp</dimen>
+    <dimen name="text_lb_name">15sp</dimen>
+    <dimen name="text_lb_score">15sp</dimen>
+    <dimen name="text_lb_tab">15sp</dimen>
 </resources>

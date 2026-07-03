@@ -19,6 +19,7 @@ enum class EntityKind(val category: EntityCategory) {
     SHIELD(EntityCategory.POWERUP),
     MAGNET(EntityCategory.POWERUP),
     HEART(EntityCategory.POWERUP),
+    FEATHER(EntityCategory.POWERUP),
 }
 
 /**

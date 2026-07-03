@@ -32,10 +32,18 @@
     <color name="ach_progress_track">#FF532707</color>
     <color name="ach_progress_track_stroke">#FFA66333</color>
     <color name="ach_progress_fill">#FFF67D01</color>
+    <color name="lb_row_you">#FFA4C12D</color>
+    <color name="lb_tab_active">#FFFDA40A</color>
+    <color name="lb_tab_inactive_text">#FFE4B87F</color>
+
     <color name="profile_board">#FF90480F</color>
     <color name="profile_board_stroke">#FF461C00</color>
     <color name="profile_name_input">#33000000</color>
     <color name="text_stroke">#FFC34800</color>
+    <color name="score_stroke">#FFE6B66C</color>
     <color name="text_stroke1">#FFFDFB20</color>
     <color name="scrim">#99000000</color>
+
+    <color name="toggle_on">#FFA4C12D</color>
+    <color name="toggle_off">#FF6B4A2B</color>
 </resources>

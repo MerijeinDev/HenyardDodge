@@ -32,7 +32,7 @@ class GameView @JvmOverloads constructor(
         fun onScoreChanged(score: Int)
         fun onLivesChanged(lives: Int)
         fun onTimeChanged(secondsLeft: Int)
-        fun onGameOver(score: Int, coins: Int, won: Boolean, stars: Int)
+        fun onGameOver(result: GameResult)
     }
 
     var listener: Listener? = null
@@ -41,6 +41,12 @@ class GameView @JvmOverloads constructor(
     var level: Int = 1
     var levelDurationMs: Long = 45_000L
     var heroDrawableRes: Int = R.drawable.hen_run
+
+    /** Difficulty tuning for the current [level]; set by the host before start. */
+    var tuning: Levels.Tuning = Levels.tuningFor(1)
+
+    /** Ability granted by the equipped skin. */
+    var skinAbility: SkinAbility = SkinAbility.NONE
 
     // ---- Runtime state ----
     @Volatile private var running = false
@@ -63,6 +69,20 @@ class GameView @JvmOverloads constructor(
     private var iframeMs = 0f
     private var shieldMs = 0f
     private var magnetMs = 0f
+    private var slowMs = 0f
+
+    // Skin-derived modifiers (resolved in setupWorld)
+    private var hitboxScale = 1f
+    private var toughCharge = false
+
+    // Run stats (for achievements / result popup)
+    private var grainCollected = 0
+    private var hazardsDodged = 0
+    private var foxDodged = 0
+    private var shieldBlocks = 0
+    private var hits = 0
+    private var noHitMs = 0L
+    private var longestNoHitMs = 0L
 
     // World
     private val playfield = RectF()
@@ -141,6 +161,11 @@ class GameView @JvmOverloads constructor(
         loadKind(EntityKind.SHIELD, R.drawable.powerup_shield, w * 0.13f)
         loadKind(EntityKind.MAGNET, R.drawable.powerup_magnet, w * 0.13f)
         loadKind(EntityKind.HEART, R.drawable.heart_active, w * 0.12f)
+        kindBitmaps[EntityKind.FEATHER] = bitmapFromVector(R.drawable.powerup_slow, (w * 0.13f).toInt())
+
+        // Skin-derived modifiers.
+        hitboxScale = if (skinAbility == SkinAbility.SLIM) 0.75f else 1f
+        toughCharge = skinAbility == SkinAbility.TOUGH
 
         playfield.set(w * 0.10f, h * 0.14f, w * 0.90f, h * 0.94f)
         if (!initialized) {
@@ -161,6 +186,20 @@ class GameView @JvmOverloads constructor(
 
     private fun loadKind(kind: EntityKind, res: Int, targetWidth: Float) {
         kindBitmaps[kind] = decodeScaledToWidth(res, targetWidth.toInt())
+    }
+
+    /** Rasterizes a vector drawable to a bitmap of [targetWidth], preserving aspect. */
+    private fun bitmapFromVector(res: Int, targetWidth: Int): Bitmap {
+        val drawable = androidx.core.content.ContextCompat.getDrawable(context, res)!!
+        val w = targetWidth.coerceAtLeast(1)
+        val ratio = if (drawable.intrinsicWidth > 0)
+            drawable.intrinsicHeight.toFloat() / drawable.intrinsicWidth else 1f
+        val h = (w * ratio).toInt().coerceAtLeast(1)
+        val bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
+        val c = Canvas(bmp)
+        drawable.setBounds(0, 0, w, h)
+        drawable.draw(c)
+        return bmp
     }
 
     private fun decodeScaledToWidth(res: Int, targetWidth: Int): Bitmap {
@@ -212,6 +251,11 @@ class GameView @JvmOverloads constructor(
         if (iframeMs > 0) iframeMs -= dt * 1000
         if (shieldMs > 0) shieldMs -= dt * 1000
         if (magnetMs > 0) magnetMs -= dt * 1000
+        if (slowMs > 0) slowMs -= dt * 1000
+
+        // longest no-hit streak
+        noHitMs += dtMs
+        if (noHitMs > longestNoHitMs) longestNoHitMs = noHitMs
 
         // player follows finger with easing
         px += (targetX - px) * (12f * dt).coerceAtMost(1f)
@@ -242,7 +286,8 @@ class GameView @JvmOverloads constructor(
         powerupTimer -= dt
 
         if (obstacleTimer <= 0f) {
-            obstacleTimer = (1.25f - 0.45f * diff).coerceAtLeast(0.55f) + Random.nextFloat() * 0.3f
+            val base = (1.25f - 0.45f * diff).coerceAtLeast(0.55f) + Random.nextFloat() * 0.3f
+            obstacleTimer = base / tuning.densityMul
             spawnObstacle(diff)
         }
         if (collectibleTimer <= 0f) {
@@ -250,7 +295,7 @@ class GameView @JvmOverloads constructor(
             spawnCollectible()
         }
         if (powerupTimer <= 0f) {
-            powerupTimer = 7.5f + Random.nextFloat() * 4f
+            powerupTimer = (7.5f + Random.nextFloat() * 4f) * tuning.bonusRarityMul
             spawnPowerup()
         }
     }
@@ -259,17 +304,10 @@ class GameView @JvmOverloads constructor(
         Random.nextFloat() * (playfield.width() - 2 * inset) + playfield.left + inset
 
     private fun spawnObstacle(diff: Float) {
-        val roll = Random.nextInt(5)
-        val kind = when (roll) {
-            0 -> EntityKind.BARREL
-            1 -> EntityKind.HAY
-            2 -> EntityKind.TOOL_1
-            3 -> EntityKind.TOOL_2
-            else -> EntityKind.FOX
-        }
+        val kind = tuning.hazards.randomOrNull() ?: EntityKind.HAY
         val bmp = kindBitmaps[kind] ?: return
         val r = bmp.width * 0.42f
-        val speed = height * (0.42f + 0.18f * diff)
+        val speed = height * (0.42f + 0.18f * diff) * tuning.speedMul
         if (kind == EntityKind.FOX) {
             // Fox dashes horizontally across the pen.
             val fromLeft = Random.nextBoolean()
@@ -306,10 +344,11 @@ class GameView @JvmOverloads constructor(
     }
 
     private fun spawnPowerup() {
-        val roll = Random.nextInt(3)
+        val roll = Random.nextInt(4)
         val kind = when (roll) {
             0 -> EntityKind.SHIELD
             1 -> EntityKind.MAGNET
+            2 -> EntityKind.FEATHER
             else -> EntityKind.HEART
         }
         val bmp = kindBitmaps[kind] ?: return
@@ -319,7 +358,10 @@ class GameView @JvmOverloads constructor(
     }
 
     private fun updateEntities(dt: Float) {
-        val magnetActive = magnetMs > 0
+        // Slow-motion feather halves entity speed (the player still follows normally).
+        val moveDt = if (slowMs > 0) dt * 0.5f else dt
+        val powerMagnet = magnetMs > 0
+        val passiveMagnet = skinAbility == SkinAbility.MAGNET
         val it = entities.iterator()
         while (it.hasNext()) {
             val e = it.next()
@@ -328,51 +370,75 @@ class GameView @JvmOverloads constructor(
                 continue
             }
 
-            if (magnetActive && e.category == EntityCategory.COLLECTIBLE) {
+            val isCollectible = e.category == EntityCategory.COLLECTIBLE
+            val distNow = hypot(px - e.x, py - e.y)
+            val magnetPulling = isCollectible &&
+                (powerMagnet || (passiveMagnet && distNow < height * 0.33f))
+            if (magnetPulling) {
                 val dx = px - e.x
                 val dy = py - e.y
-                val d = hypot(dx, dy).coerceAtLeast(1f)
-                val pull = height * 0.9f
-                e.x += dx / d * pull * dt
-                e.y += dy / d * pull * dt
+                val d = distNow.coerceAtLeast(1f)
+                val pull = if (powerMagnet) height * 0.9f else height * 0.55f
+                e.x += dx / d * pull * moveDt
+                e.y += dy / d * pull * moveDt
             } else {
-                e.x += e.vx * dt
-                e.y += e.vy * dt
+                e.x += e.vx * moveDt
+                e.y += e.vy * moveDt
             }
-            e.rotation += e.spin * dt
+            e.rotation += e.spin * moveDt
 
-            // off-screen cull
+            // off-screen cull (an obstacle that leaves the pen was dodged)
             if (e.y - e.radius > height || e.x < -e.radius * 2 || e.x > width + e.radius * 2) {
+                if (e.category == EntityCategory.OBSTACLE) {
+                    hazardsDodged++
+                    if (e.kind == EntityKind.FOX) foxDodged++
+                }
                 it.remove()
                 continue
             }
 
             // collision with player
             val dist = hypot(px - e.x, py - e.y)
-            if (dist < pr + e.radius * 0.8f) {
+            if (dist < pr * hitboxScale + e.radius * 0.8f) {
                 when (e.category) {
                     EntityCategory.OBSTACLE -> {
-                        if (shieldMs <= 0 && iframeMs <= 0) {
-                            lives -= 1
-                            iframeMs = 1200f
-                            listener?.let { l -> post { l.onLivesChanged(lives) } }
+                        if (shieldMs > 0) {
+                            shieldBlocks++
                             it.remove()
-                            if (lives <= 0) endGame(false)
-                        } else if (shieldMs > 0) {
-                            it.remove()
+                        } else if (iframeMs <= 0) {
+                            if (toughCharge) {
+                                // Tough Hat absorbs the first hit each level.
+                                toughCharge = false
+                                iframeMs = 1200f
+                                it.remove()
+                            } else {
+                                lives -= 1
+                                hits++
+                                noHitMs = 0
+                                iframeMs = 1200f
+                                listener?.let { l -> post { l.onLivesChanged(lives) } }
+                                it.remove()
+                                if (lives <= 0) endGame(false)
+                            }
                         }
                     }
                     EntityCategory.COLLECTIBLE -> {
-                        val value = if (e.kind == EntityKind.COIN) 10 else 5
-                        score += value
-                        coins += if (e.kind == EntityKind.COIN) 1 else 0
+                        if (e.kind == EntityKind.COIN) {
+                            score += 10
+                            coins++
+                        } else {
+                            score += 5
+                            grainCollected++
+                        }
                         listener?.let { l -> post { l.onScoreChanged(score) } }
                         it.remove()
                     }
                     EntityCategory.POWERUP -> {
                         when (e.kind) {
-                            EntityKind.SHIELD -> shieldMs = 6000f
-                            EntityKind.MAGNET -> magnetMs = 6000f
+                            EntityKind.SHIELD ->
+                                shieldMs = if (skinAbility == SkinAbility.LONG_SHIELD) 12_000f else 6_000f
+                            EntityKind.MAGNET -> magnetMs = 6_000f
+                            EntityKind.FEATHER -> slowMs = 2_500f
                             EntityKind.HEART -> if (lives < 3) {
                                 lives += 1
                                 listener?.let { l -> post { l.onLivesChanged(lives) } }
@@ -399,7 +465,20 @@ class GameView @JvmOverloads constructor(
             score >= 200 -> 2
             else -> 1
         }
-        listener?.let { l -> post { l.onGameOver(score, coins, won, stars) } }
+        val result = GameResult(
+            score = score,
+            coinsCollected = coins,
+            won = won,
+            stars = stars,
+            grain = grainCollected,
+            hazardsDodged = hazardsDodged,
+            foxDodged = foxDodged,
+            shieldBlocks = shieldBlocks,
+            hits = hits,
+            survivedSeconds = (elapsedMs / 1000).toInt(),
+            longestNoHitSeconds = (longestNoHitMs / 1000).toInt(),
+        )
+        listener?.let { l -> post { l.onGameOver(result) } }
     }
 
     // region draw
@@ -445,6 +524,11 @@ class GameView @JvmOverloads constructor(
             drawCentered(canvas, shieldBitmap, px, py)
             paint.alpha = 255
         }
+
+        // Slow-motion: cool blue wash over the whole pen.
+        if (slowMs > 0) {
+            canvas.drawColor(Color.argb(60, 40, 120, 220))
+        }
     }
 
     private fun drawCentered(canvas: Canvas, bmp: Bitmap, cx: Float, cy: Float) {
@@ -462,3 +546,18 @@ class GameView @JvmOverloads constructor(
         return true
     }
 }
+
+/** Snapshot of a finished run, delivered to the host for scoring/persistence. */
+data class GameResult(
+    val score: Int,
+    val coinsCollected: Int,
+    val won: Boolean,
+    val stars: Int,
+    val grain: Int,
+    val hazardsDodged: Int,
+    val foxDodged: Int,
+    val shieldBlocks: Int,
+    val hits: Int,
+    val survivedSeconds: Int,
+    val longestNoHitSeconds: Int,
+)

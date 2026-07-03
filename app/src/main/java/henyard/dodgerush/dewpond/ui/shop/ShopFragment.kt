@@ -35,7 +35,7 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
         updateBalance()
 
         val pages = ShopCatalog.pages
-        binding.shopPager.adapter = ShopPageAdapter(pages, prefs, ::onBuy)
+        binding.shopPager.adapter = ShopPageAdapter(pages, prefs, ::onBuy, ::onEquip)
 
         buildDots(pages.size)
         binding.shopPager.registerOnPageChangeCallback(
@@ -56,6 +56,16 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
         prefs.setShopItemOwned(item.id)
         updateBalance()
         return true
+    }
+
+    /** Equips an owned skin and refreshes the grid so labels update everywhere. */
+    private fun onEquip(item: ShopItem) {
+        if (!prefs.ownsShopItem(item.id)) return
+        prefs.equippedSkin = item.id
+        val current = binding.shopPager.currentItem
+        binding.shopPager.adapter =
+            ShopPageAdapter(ShopCatalog.pages, prefs, ::onBuy, ::onEquip)
+        binding.shopPager.setCurrentItem(current, false)
     }
 
     private fun updateBalance() {

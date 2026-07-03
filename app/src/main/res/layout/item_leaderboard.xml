@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lbRoot"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/profile_stat_row"
+    android:paddingStart="10dp"
+    android:paddingEnd="16dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start|center_vertical"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="42dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/lbRank"
+                style="@style/Text.Henyard.LbRank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:text="4" />
+
+            <ImageView
+                android:id="@+id/lbMedal"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/cd_medal"
+                android:visibility="gone"
+                tools:src="@drawable/lb_medal_1"
+                tools:visibility="visible" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/lbAvatar"
+            android:layout_width="28dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="2dp"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter"
+            tools:src="@drawable/hen_card_1" />
+
+        <TextView
+            android:id="@+id/lbName"
+            style="@style/Text.Henyard.LbName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            tools:text="Player" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lbScore"
+        style="@style/Text.Henyard.LbScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        tools:text="1,243,657" />
+</FrameLayout>

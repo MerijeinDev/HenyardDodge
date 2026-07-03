@@ -86,6 +86,12 @@
         <action
             android:id="@+id/action_menu_to_profile"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_menu_to_leaderboard"
+            app:destination="@id/leaderboardFragment" />
+        <action
+            android:id="@+id/action_menu_to_settings"
+            app:destination="@id/settingsFragment" />
     </fragment>
 
     <fragment
@@ -105,6 +111,18 @@
         android:name="henyard.dodgerush.dewpond.ui.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/leaderboardFragment"
+        android:name="henyard.dodgerush.dewpond.ui.leaderboard.LeaderboardFragment"
+        android:label="Leaderboard"
+        tools:layout="@layout/fragment_leaderboard" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="henyard.dodgerush.dewpond.ui.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/levelSelectFragment"

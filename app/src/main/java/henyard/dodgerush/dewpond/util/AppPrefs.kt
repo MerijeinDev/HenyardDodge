@@ -57,15 +57,66 @@ class AppPrefs(context: Context) {
             .apply()
     }
 
-    /** Whether a shop item (by id) has been purchased. */
+    // ---- Lifetime counters used to drive achievements ----
+    val lifetimeGrain: Int get() = prefs.getInt(KEY_GRAIN, 0)
+    val lifetimeCoinsCollected: Int get() = prefs.getInt(KEY_COINS_COLLECTED, 0)
+    val hazardsDodged: Int get() = prefs.getInt(KEY_HAZARDS_DODGED, 0)
+    val foxDodged: Int get() = prefs.getInt(KEY_FOX_DODGED, 0)
+    val shieldBlocks: Int get() = prefs.getInt(KEY_SHIELD_BLOCKS, 0)
+    val surviveSeconds: Int get() = prefs.getInt(KEY_SURVIVE_SECONDS, 0)
+    val hasUntouchableWin: Boolean get() = prefs.getBoolean(KEY_UNTOUCHABLE, false)
+
+    /**
+     * Accumulates a run's gameplay stats into the lifetime counters that back
+     * the achievements and profile records.
+     */
+    fun recordRunStats(
+        grain: Int,
+        coinsCollected: Int,
+        hazardsDodged: Int,
+        foxDodged: Int,
+        shieldBlocks: Int,
+        survivedSeconds: Int,
+        longestNoHitSeconds: Int,
+        untouchableWin: Boolean,
+    ) {
+        prefs.edit()
+            .putInt(KEY_GRAIN, lifetimeGrain + grain.coerceAtLeast(0))
+            .putInt(KEY_COINS_COLLECTED, lifetimeCoinsCollected + coinsCollected.coerceAtLeast(0))
+            .putInt(KEY_HAZARDS_DODGED, this.hazardsDodged + hazardsDodged.coerceAtLeast(0))
+            .putInt(KEY_FOX_DODGED, this.foxDodged + foxDodged.coerceAtLeast(0))
+            .putInt(KEY_SHIELD_BLOCKS, this.shieldBlocks + shieldBlocks.coerceAtLeast(0))
+            .putInt(KEY_SURVIVE_SECONDS, surviveSeconds + survivedSeconds.coerceAtLeast(0))
+            .putInt(KEY_LONGEST_NO_HIT, maxOf(this.longestNoHitSeconds, longestNoHitSeconds.coerceAtLeast(0)))
+            .putBoolean(KEY_UNTOUCHABLE, hasUntouchableWin || untouchableWin)
+            .apply()
+    }
+
+    // ---- Settings ----
+    var musicEnabled: Boolean
+        get() = prefs.getBoolean(KEY_MUSIC, true)
+        set(value) = prefs.edit().putBoolean(KEY_MUSIC, value).apply()
+
+    var sfxEnabled: Boolean
+        get() = prefs.getBoolean(KEY_SFX, true)
+        set(value) = prefs.edit().putBoolean(KEY_SFX, value).apply()
+
+    /** Whether a shop item (by id) has been purchased. The default skin is free. */
     fun ownsShopItem(id: String): Boolean =
-        prefs.getStringSet(KEY_OWNED_ITEMS, emptySet()).orEmpty().contains(id)
+        id == henyard.dodgerush.dewpond.game.ShopCatalog.DEFAULT_SKIN ||
+            prefs.getStringSet(KEY_OWNED_ITEMS, emptySet()).orEmpty().contains(id)
 
     /** Marks a shop item as owned. */
     fun setShopItemOwned(id: String) {
         val owned = prefs.getStringSet(KEY_OWNED_ITEMS, emptySet()).orEmpty().toMutableSet()
         if (owned.add(id)) prefs.edit().putStringSet(KEY_OWNED_ITEMS, owned).apply()
     }
+
+    /** Currently equipped skin id (drives the in-game chicken visual + ability). */
+    var equippedSkin: String
+        get() = prefs.getString(KEY_EQUIPPED_SKIN, henyard.dodgerush.dewpond.game.ShopCatalog.DEFAULT_SKIN)
+            .orEmpty().ifBlank { henyard.dodgerush.dewpond.game.ShopCatalog.DEFAULT_SKIN }
+        set(value) = prefs.edit().putString(KEY_EQUIPPED_SKIN, value).apply()
 
     /** Best star rating (0..3) earned on a given level; 0 means not yet cleared. */
     fun starsForLevel(level: Int): Int = prefs.getInt(KEY_STARS_PREFIX + level, 0)
@@ -93,5 +144,15 @@ class AppPrefs(context: Context) {
         const val KEY_TOTAL_SCORE = "total_score"
         const val KEY_BEST_RUN_SCORE = "best_run_score"
         const val KEY_LONGEST_NO_HIT = "longest_no_hit"
+        const val KEY_EQUIPPED_SKIN = "equipped_skin"
+        const val KEY_GRAIN = "lifetime_grain"
+        const val KEY_COINS_COLLECTED = "lifetime_coins_collected"
+        const val KEY_HAZARDS_DODGED = "hazards_dodged"
+        const val KEY_FOX_DODGED = "fox_dodged"
+        const val KEY_SHIELD_BLOCKS = "shield_blocks"
+        const val KEY_SURVIVE_SECONDS = "survive_seconds"
+        const val KEY_UNTOUCHABLE = "untouchable_win"
+        const val KEY_MUSIC = "music_enabled"
+        const val KEY_SFX = "sfx_enabled"
     }
 }

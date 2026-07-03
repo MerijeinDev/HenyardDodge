@@ -22,12 +22,23 @@
     <string name="cd_pause">Pause</string>
     <string name="time_zero">00:00</string>
 
-    <string name="paused">PAUSED</string>
+    <string name="paused">PAUSE</string>
     <string name="resume">RESUME</string>
+    <string name="pause_continue">CONTINUE</string>
     <string name="menu">MENU</string>
     <string name="retry">RETRY</string>
     <string name="game_over">GAME OVER</string>
     <string name="you_win">YOU WIN!</string>
+    <string name="settings">SETTINGS</string>
+    <string name="settings_music">Music</string>
+    <string name="settings_sound">Sound FX</string>
+    <string name="settings_on">ON</string>
+    <string name="settings_off">OFF</string>
+    <string name="home">HOME</string>
+    <string name="replay">REPLAY</string>
+    <string name="result_reward">+%1$d</string>
+    <string name="result_largest_no_hit">Largest without hit</string>
+    <string name="result_grain_collected">Grain collected</string>
 
     <string name="no_internet_title">NO INTERNET</string>
     <string name="no_internet_message">Please, check your internet\nconnection and restart</string>
@@ -59,6 +70,8 @@
 
     <string name="shop">SHOP</string>
     <string name="shop_owned">OWNED</string>
+    <string name="shop_equip">EQUIP</string>
+    <string name="shop_equipped">EQUIPPED</string>
     <string name="shop_locked_level">Level %1$d</string>
     <string name="shop_not_enough">Not enough coins</string>
 
@@ -114,4 +127,10 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="cd_avatar">Player avatar</string>
+
+    <string name="leaderboard">LEADERBOARD</string>
+    <string name="lb_this_week">This Week</string>
+    <string name="lb_all_time">All Time</string>
+    <string name="lb_you">You</string>
+    <string name="cd_medal">Top rank medal</string>
 </resources>

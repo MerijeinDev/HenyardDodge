@@ -2,12 +2,12 @@ package henyard.dodgerush.dewpond.ui.menu
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import henyard.dodgerush.dewpond.R
 import henyard.dodgerush.dewpond.databinding.FragmentMainMenuBinding
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
+import henyard.dodgerush.dewpond.util.SoundManager
 
 /**
  * Main menu (portrait). Entry hub for Play, Shop, Achievements, Profile, Leaderboard.
@@ -20,10 +20,15 @@ class MainMenuFragment : BaseFragment(R.layout.fragment_main_menu) {
 
         binding.coinsText.text = "%,d".format(AppPrefs(requireContext()).coins)
 
+        SoundManager.init(requireContext())
+        SoundManager.startMusic(requireContext())
+
         binding.btnPlay.setOnClickListener {
             findNavController().navigate(R.id.action_menu_to_level_select)
         }
-        binding.btnSettings.setOnClickListener { notImplemented("Settings") }
+        binding.btnSettings.setOnClickListener {
+            findNavController().navigate(R.id.action_menu_to_settings)
+        }
         binding.btnShop.setOnClickListener {
             findNavController().navigate(R.id.action_menu_to_shop)
         }
@@ -33,10 +38,8 @@ class MainMenuFragment : BaseFragment(R.layout.fragment_main_menu) {
         binding.btnProfile.setOnClickListener {
             findNavController().navigate(R.id.action_menu_to_profile)
         }
-        binding.btnLeaderboard.setOnClickListener { notImplemented("Leaderboard") }
-    }
-
-    private fun notImplemented(name: String) {
-        Toast.makeText(requireContext(), "$name — soon", Toast.LENGTH_SHORT).show()
+        binding.btnLeaderboard.setOnClickListener {
+            findNavController().navigate(R.id.action_menu_to_leaderboard)
+        }
     }
 }

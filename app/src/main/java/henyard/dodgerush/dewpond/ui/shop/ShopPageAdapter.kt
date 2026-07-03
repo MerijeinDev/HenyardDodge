@@ -13,6 +13,7 @@ class ShopPageAdapter(
     private val pages: List<List<ShopItem>>,
     private val prefs: AppPrefs,
     private val onBuy: (ShopItem) -> Boolean,
+    private val onEquip: (ShopItem) -> Unit,
 ) : RecyclerView.Adapter<ShopPageAdapter.PageHolder>() {
 
     override fun getItemCount() = pages.size
@@ -23,16 +24,21 @@ class ShopPageAdapter(
     }
 
     override fun onBindViewHolder(holder: PageHolder, position: Int) {
-        holder.bind(pages[position], prefs, onBuy)
+        holder.bind(pages[position], prefs, onBuy, onEquip)
     }
 
     class PageHolder(
         private val binding: PageShopGridBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(items: List<ShopItem>, prefs: AppPrefs, onBuy: (ShopItem) -> Boolean) {
+        fun bind(
+            items: List<ShopItem>,
+            prefs: AppPrefs,
+            onBuy: (ShopItem) -> Boolean,
+            onEquip: (ShopItem) -> Unit,
+        ) {
             binding.pageGrid.layoutManager = GridLayoutManager(binding.root.context, COLUMNS)
-            binding.pageGrid.adapter = ShopItemAdapter(items, prefs, onBuy)
+            binding.pageGrid.adapter = ShopItemAdapter(items, prefs, onBuy, onEquip)
         }
     }
 

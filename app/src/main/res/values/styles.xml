@@ -110,6 +110,45 @@
         <item name="android:maxLines">1</item>
     </style>
 
+    <!-- Leaderboard rank number: dark-brown, bold, centered. -->
+    <style name="Text.Henyard.LbRank">
+        <item name="android:textSize">@dimen/text_lb_rank</item>
+        <item name="android:textColor">@color/ach_text</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!-- Leaderboard player name: dark-brown, bold. -->
+    <style name="Text.Henyard.LbName">
+        <item name="android:textSize">@dimen/text_lb_name</item>
+        <item name="android:textColor">@color/ach_text</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- Leaderboard score: dark-brown, semi-bold. -->
+    <style name="Text.Henyard.LbScore">
+        <item name="android:textSize">@dimen/text_lb_score</item>
+        <item name="android:textColor">@color/ach_text</item>
+        <item name="android:fontFamily">@font/fredoka_semibold</item>
+        <item name="fontFamily">@font/fredoka_semibold</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!-- Leaderboard period tab label: bold; color set per selection state. -->
+    <style name="Text.Henyard.LbTab">
+        <item name="android:textSize">@dimen/text_lb_tab</item>
+        <item name="android:textColor">@color/lb_tab_inactive_text</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
     <!-- Profile player name: solid brown, extra-bold (Figma #834005). -->
     <style name="Text.Henyard.ProfileName">
         <item name="android:textSize">@dimen/text_profile_name</item>

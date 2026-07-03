@@ -17,13 +17,14 @@ class ShopItemAdapter(
     private val items: List<ShopItem>,
     private val prefs: AppPrefs,
     private val onBuy: (ShopItem) -> Boolean,
+    private val onEquip: (ShopItem) -> Unit,
 ) : RecyclerView.Adapter<ShopItemAdapter.ShopHolder>() {
 
     override fun getItemCount() = items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopHolder {
         val binding = ItemShopBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ShopHolder(binding, prefs, onBuy)
+        return ShopHolder(binding, prefs, onBuy, onEquip)
     }
 
     override fun onBindViewHolder(holder: ShopHolder, position: Int) {
@@ -34,6 +35,7 @@ class ShopItemAdapter(
         private val binding: ItemShopBinding,
         private val prefs: AppPrefs,
         private val onBuy: (ShopItem) -> Boolean,
+        private val onEquip: (ShopItem) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ShopItem) {
@@ -64,16 +66,28 @@ class ShopItemAdapter(
             binding.itemDesc.setText(item.descRes)
             binding.priceButton.visibility = View.VISIBLE
 
-            if (prefs.ownsShopItem(item.id)) {
-                binding.priceCoin.visibility = View.GONE
-                binding.priceText.setText(R.string.shop_owned)
-                binding.priceButton.isClickable = false
-                binding.priceButton.setOnClickListener(null)
-            } else {
-                binding.priceCoin.visibility = View.VISIBLE
-                binding.priceText.text = item.price.toString()
-                binding.priceButton.isClickable = true
-                binding.priceButton.setOnClickListener { if (onBuy(item)) bind(item) }
+            when {
+                prefs.equippedSkin == item.id -> {
+                    binding.priceCoin.visibility = View.GONE
+                    binding.priceText.setText(R.string.shop_equipped)
+                    binding.priceButton.isClickable = false
+                    binding.priceButton.setOnClickListener(null)
+                }
+                prefs.ownsShopItem(item.id) -> {
+                    binding.priceCoin.visibility = View.GONE
+                    binding.priceText.setText(R.string.shop_equip)
+                    binding.priceButton.isClickable = true
+                    binding.priceButton.setOnClickListener {
+                        onEquip(item)
+                        bind(item)
+                    }
+                }
+                else -> {
+                    binding.priceCoin.visibility = View.VISIBLE
+                    binding.priceText.text = item.price.toString()
+                    binding.priceButton.isClickable = true
+                    binding.priceButton.setOnClickListener { if (onBuy(item)) bind(item) }
+                }
             }
         }
     }
