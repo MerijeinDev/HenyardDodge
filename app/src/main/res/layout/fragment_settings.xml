@@ -100,7 +100,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/settings_on"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:paddingHorizontal="2dp"/>
                 </FrameLayout>
             </FrameLayout>
 
@@ -135,7 +136,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/settings_on"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:paddingHorizontal="2dp"/>
                 </FrameLayout>
             </FrameLayout>
         </LinearLayout>

@@ -38,7 +38,7 @@ object AchievementCatalog {
             clearedLevels(it).coerceAtMost(1)
         },
         Achievement("untouchable", R.string.ach_untouchable, R.string.ach_untouchable_desc, 1) {
-            if (it.hasUntouchableWin) 1 else 0
+            if (it.hasFlawlessClear) 1 else 0
         },
         Achievement("grain_eater", R.string.ach_grain_eater, R.string.ach_grain_eater_desc, 5000) {
             it.lifetimeGrain

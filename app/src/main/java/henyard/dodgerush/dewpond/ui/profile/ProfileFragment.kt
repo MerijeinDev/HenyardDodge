@@ -12,6 +12,7 @@ import henyard.dodgerush.dewpond.game.AchievementCatalog
 import henyard.dodgerush.dewpond.game.Levels
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
+import henyard.dodgerush.dewpond.util.setClickSound
 
 /** Profile screen: player name/avatar plus overall stats and best records,
  * all read from [AppPrefs]. The name can be changed via the EDIT button. */
@@ -25,8 +26,8 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
         binding = FragmentProfileBinding.bind(view)
         prefs = AppPrefs(requireContext())
 
-        binding.btnBack.setOnClickListener { findNavController().popBackStack() }
-        binding.btnEdit.setOnClickListener { showEditNameDialog() }
+        binding.btnBack.setClickSound { findNavController().popBackStack() }
+        binding.btnEdit.setClickSound { showEditNameDialog() }
 
         binding.sectionOverall.sectionLabel.setText(R.string.profile_overall_stats)
         binding.sectionRecords.sectionLabel.setText(R.string.profile_best_records)

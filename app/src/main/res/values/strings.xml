@@ -28,7 +28,7 @@
     <string name="menu">MENU</string>
     <string name="retry">RETRY</string>
     <string name="game_over">GAME OVER</string>
-    <string name="you_win">YOU WIN!</string>
+    <string name="you_cleared">YOU DID IT!</string>
     <string name="settings">SETTINGS</string>
     <string name="settings_music">Music</string>
     <string name="settings_sound">Sound FX</string>
@@ -46,14 +46,14 @@
     <string name="checking">CHECKING</string>
     <string name="cd_no_internet">No internet connection</string>
 
-    <string name="notifications_message">Allow notifications about bonuses and promos. Stay tuned with best offers from our casino.</string>
+    <string name="notifications_message">Allow notifications to get the latest updates, tips and special offers straight to your device.</string>
     <string name="notif_allow">I want!</string>
     <string name="notif_deny">Skip</string>
     <string name="cd_notifications">Notifications</string>
 
     <string name="onboarding_1">Drag the hen around the yard with your finger.</string>
     <string name="onboarding_2">Dodge the falling hay, rolling barrels and the fox! One hit costs a life.</string>
-    <string name="onboarding_3">Grab grain and grab power-ups. Survive until the timer runs out to win!</string>
+    <string name="onboarding_3">Grab grain and grab power-ups. Survive until the timer runs out to clear the round!</string>
     <string name="next">NEXT</string>
     <string name="start">START</string>
     <string name="cd_onboarding">How to play</string>

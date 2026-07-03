@@ -50,7 +50,7 @@
         <item name="android:maxLines">1</item>
     </style>
 
-    <!-- Shop locked-slot title: white fill + gray stroke "Level N" (Figma). -->
+    <!-- Shop locked-cell title: white fill + gray stroke "Level N" (Figma). -->
     <style name="Text.Henyard.ShopTitle.Locked">
         <item name="outlineColor">@color/shop_lock_stroke</item>
     </style>
@@ -202,6 +202,48 @@
         <item name="outlineColor">@color/text_stroke</item>
         <item name="outlineWidth">2dp</item>
         <item name="fontFamily">@font/fredoka</item>
+    </style>
+
+    <!-- HUD score plate label "SCORE": solid brown, bold (Figma #8C470A). -->
+    <style name="Text.Henyard.HudScoreLabel" parent="Text.Henyard">
+        <item name="android:textColor">@color/hud_score_label</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+    </style>
+
+    <!-- HUD score value: gold fill + brown stroke (Figma #FBD582 / #8C470A). -->
+    <style name="Text.Henyard.HudScoreValue" parent="Text.Henyard.Outlined">
+        <item name="android:textColor">@color/hud_score_value</item>
+        <item name="outlineColor">@color/hud_score_label</item>
+        <item name="outlineWidth">2dp</item>
+    </style>
+
+    <!-- Win / Game Over / Pause banner title: cream fill + dark-brown stroke (Figma). -->
+    <style name="Text.Henyard.Outlined.ResultTitle">
+        <item name="android:textColor">@color/result_title_fill</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+        <item name="outlineColor">@color/result_title_stroke</item>
+        <item name="outlineWidth">3dp</item>
+    </style>
+
+    <!-- Result stat row label: solid brown, bold (Figma #753B0F). -->
+    <style name="Text.Henyard.ResultStatLabel" parent="Text.Henyard">
+        <item name="android:textColor">@color/result_stat_brown</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+    </style>
+
+    <!-- Result stat row value: white fill + brown stroke (Figma). -->
+    <style name="Text.Henyard.ResultStatValue" parent="Text.Henyard.Outlined">
+        <item name="android:textColor">@color/white</item>
+        <item name="outlineColor">@color/result_stat_brown</item>
+        <item name="outlineWidth">2dp</item>
+    </style>
+
+    <!-- Coin reward line: white fill + tan stroke (Figma #E6B66C). -->
+    <style name="Text.Henyard.OutlinedYellow.Reward">
+        <item name="outlineColor">@color/score_stroke</item>
     </style>
 
     <!-- Splash running chicken position/size.

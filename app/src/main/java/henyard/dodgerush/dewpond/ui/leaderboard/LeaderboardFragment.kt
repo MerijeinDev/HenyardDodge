@@ -12,6 +12,7 @@ import henyard.dodgerush.dewpond.game.LbPeriod
 import henyard.dodgerush.dewpond.game.Leaderboard
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
+import henyard.dodgerush.dewpond.util.setClickSound
 
 /** Leaderboard screen: an offline pseudo-ranking of bots plus the player,
  * switchable between This Week and All Time. */
@@ -26,11 +27,11 @@ class LeaderboardFragment : BaseFragment(R.layout.fragment_leaderboard) {
         binding = FragmentLeaderboardBinding.bind(view)
         prefs = AppPrefs(requireContext())
 
-        binding.btnBack.setOnClickListener { findNavController().popBackStack() }
+        binding.btnBack.setClickSound { findNavController().popBackStack() }
         binding.lbList.layoutManager = LinearLayoutManager(requireContext())
 
-        binding.tabWeek.setOnClickListener { selectPeriod(LbPeriod.WEEK) }
-        binding.tabAllTime.setOnClickListener { selectPeriod(LbPeriod.ALL_TIME) }
+        binding.tabWeek.setClickSound { selectPeriod(LbPeriod.WEEK) }
+        binding.tabAllTime.setClickSound { selectPeriod(LbPeriod.ALL_TIME) }
 
         selectPeriod(period)
     }

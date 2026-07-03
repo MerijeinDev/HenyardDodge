@@ -24,7 +24,7 @@ enum class SkinAbility {
 
 /**
  * A single entry in the shop. Purchasable items are skins (in-game visual +
- * [ability]) with a preview and price; placeholder slots ([previewRes] == 0)
+ * [ability]) with a preview and price; placeholder cells ([previewRes] == 0)
  * are shown locked with a "Level N" label as coming-soon content.
  */
 data class ShopItem(
@@ -34,10 +34,10 @@ data class ShopItem(
     val price: Int,
     @DrawableRes val previewRes: Int,
     val ability: SkinAbility = SkinAbility.NONE,
-    /** Player level at which a placeholder slot is themed; also its lock label. */
+    /** Player level at which a placeholder cell is themed; also its lock label. */
     val requiredLevel: Int = 1,
 ) {
-    /** Placeholder / coming-soon slots have no preview art. */
+    /** Placeholder / coming-soon cells have no preview art. */
     val isPlaceholder: Boolean get() = previewRes == 0
 }
 

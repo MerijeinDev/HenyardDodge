@@ -9,23 +9,32 @@ import android.media.SoundPool
  * Lightweight audio hub for the game. It is intentionally asset-agnostic:
  * sound effects and the background track are resolved from `res/raw` by name at
  * runtime, so the app compiles and runs with or without the audio files present.
- * Drop `res/raw/click.*`, `res/raw/coin.*`, `res/raw/hit.*` and
- * `res/raw/bg_music.*` in to make it audible; playback always respects the
- * user's music/SFX toggles in [AppPrefs].
+ * Drop the matching `res/raw/<name>.(ogg|wav|mp3)` files in to make it audible
+ * (see each [Sfx] entry and [MUSIC_RES] for the expected file names); playback
+ * always respects the user's music/SFX toggles in [AppPrefs].
  *
  * Usage: call [init] once (e.g. from the Application/first screen), then
  * [playSfx] / [startMusic] / [stopMusic]. Call [release] when tearing down.
  */
 object SoundManager {
 
-    /** Named sound effects the game may trigger. */
+    /** Named sound effects the game may trigger (asset = `res/raw/<resName>`). */
     enum class Sfx(val resName: String) {
-        CLICK("click"),
-        COIN("coin"),
-        HIT("hit"),
-        POWERUP("powerup"),
+        CLICK("click"),        // UI button tap
+        COIN("coin"),          // coin pickup
+        GRAIN("grain"),        // grain pickup ("чмок")
+        BONUS("bonus"),        // power-up pickup ("ding")
+        HIT("hit"),            // chicken takes a hit
+        SHIELD("shield"),      // shield absorbs a hit ("clink")
+        HAY_THUD("thud"),      // hay bale lands ("thud")
+        BARREL("barrel"),      // barrel rolls in
+        FOX_DASH("fox_dash"),  // fox dash from the edge
+        SUCCESS("success"),    // level survived
+        LOSE("lose"),          // out of lives
+        ERROR("error"),        // action refused (e.g. not enough coins)
     }
 
+    /** Background track for both the menu and gameplay (`res/raw/bg_music`). */
     private const val MUSIC_RES = "bg_music"
 
     private var soundPool: SoundPool? = null

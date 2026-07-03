@@ -15,9 +15,9 @@ object Levels {
         val hazards: Set<EntityKind>,
         /** Obstacle spawn density (higher = more obstacles). */
         val densityMul: Float,
-        /** Falling/dashing speed multiplier. */
+        /** Falling/dashing speed scale factor. */
         val speedMul: Float,
-        /** Power-up spacing multiplier (higher = rarer bonuses). */
+        /** Power-up spacing factor (higher = rarer bonuses). */
         val bonusRarityMul: Float,
         /** Coins awarded for completing the level. */
         val coinReward: Int,

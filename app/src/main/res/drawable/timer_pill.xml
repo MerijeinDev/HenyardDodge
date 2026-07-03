@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="#FFE58A2B" />
-    <stroke
-        android:width="3dp"
-        android:color="#FF8B4A16" />
-    <corners android:radius="26dp" />
-    <padding
-        android:left="20dp"
-        android:top="6dp"
-        android:right="20dp"
-        android:bottom="6dp" />
-</shape>
+<!-- Figma: orange fill sits flush inside the 5dp frame stroke, no extra padding. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/timer_track" />
+    <item
+        android:id="@+id/timer_fill"
+        android:bottom="5dp"
+        android:left="5dp"
+        android:right="5dp"
+        android:top="5dp">
+        <clip
+            android:clipOrientation="horizontal"
+            android:drawable="@drawable/timer_fill"
+            android:gravity="left" />
+    </item>
+</layer-list>

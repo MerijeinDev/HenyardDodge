@@ -39,6 +39,7 @@
     <color name="profile_board">#FF90480F</color>
     <color name="profile_board_stroke">#FF461C00</color>
     <color name="profile_name_input">#33000000</color>
+    <color name="score_input">#22000000</color>
     <color name="text_stroke">#FFC34800</color>
     <color name="score_stroke">#FFE6B66C</color>
     <color name="text_stroke1">#FFFDFB20</color>
@@ -46,4 +47,12 @@
 
     <color name="toggle_on">#FFA4C12D</color>
     <color name="toggle_off">#FF6B4A2B</color>
+
+    <!-- Figma-matched text colours -->
+    <color name="hud_score_label">#FF8C470A</color>
+    <color name="hud_score_value">#FFFBD582</color>
+    <color name="result_title_fill">#FFFCE3B7</color>
+    <color name="result_title_stroke">#FF571D08</color>
+    <color name="result_stat_brown">#FF753B0F</color>
+    <color name="timer_stroke">#FFB04B00</color>
 </resources>

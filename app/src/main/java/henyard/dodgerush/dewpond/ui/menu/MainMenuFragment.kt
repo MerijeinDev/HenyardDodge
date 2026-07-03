@@ -8,6 +8,7 @@ import henyard.dodgerush.dewpond.databinding.FragmentMainMenuBinding
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
 import henyard.dodgerush.dewpond.util.SoundManager
+import henyard.dodgerush.dewpond.util.setClickSound
 
 /**
  * Main menu (portrait). Entry hub for Play, Shop, Achievements, Profile, Leaderboard.
@@ -23,22 +24,22 @@ class MainMenuFragment : BaseFragment(R.layout.fragment_main_menu) {
         SoundManager.init(requireContext())
         SoundManager.startMusic(requireContext())
 
-        binding.btnPlay.setOnClickListener {
+        binding.btnPlay.setClickSound {
             findNavController().navigate(R.id.action_menu_to_level_select)
         }
-        binding.btnSettings.setOnClickListener {
+        binding.btnSettings.setClickSound {
             findNavController().navigate(R.id.action_menu_to_settings)
         }
-        binding.btnShop.setOnClickListener {
+        binding.btnShop.setClickSound {
             findNavController().navigate(R.id.action_menu_to_shop)
         }
-        binding.btnAchievements.setOnClickListener {
+        binding.btnAchievements.setClickSound {
             findNavController().navigate(R.id.action_menu_to_achievements)
         }
-        binding.btnProfile.setOnClickListener {
+        binding.btnProfile.setClickSound {
             findNavController().navigate(R.id.action_menu_to_profile)
         }
-        binding.btnLeaderboard.setOnClickListener {
+        binding.btnLeaderboard.setClickSound {
             findNavController().navigate(R.id.action_menu_to_leaderboard)
         }
     }

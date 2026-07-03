@@ -64,7 +64,7 @@ class AppPrefs(context: Context) {
     val foxDodged: Int get() = prefs.getInt(KEY_FOX_DODGED, 0)
     val shieldBlocks: Int get() = prefs.getInt(KEY_SHIELD_BLOCKS, 0)
     val surviveSeconds: Int get() = prefs.getInt(KEY_SURVIVE_SECONDS, 0)
-    val hasUntouchableWin: Boolean get() = prefs.getBoolean(KEY_UNTOUCHABLE, false)
+    val hasFlawlessClear: Boolean get() = prefs.getBoolean(KEY_UNTOUCHABLE, false)
 
     /**
      * Accumulates a run's gameplay stats into the lifetime counters that back
@@ -78,7 +78,7 @@ class AppPrefs(context: Context) {
         shieldBlocks: Int,
         survivedSeconds: Int,
         longestNoHitSeconds: Int,
-        untouchableWin: Boolean,
+        flawlessClear: Boolean,
     ) {
         prefs.edit()
             .putInt(KEY_GRAIN, lifetimeGrain + grain.coerceAtLeast(0))
@@ -88,7 +88,7 @@ class AppPrefs(context: Context) {
             .putInt(KEY_SHIELD_BLOCKS, this.shieldBlocks + shieldBlocks.coerceAtLeast(0))
             .putInt(KEY_SURVIVE_SECONDS, surviveSeconds + survivedSeconds.coerceAtLeast(0))
             .putInt(KEY_LONGEST_NO_HIT, maxOf(this.longestNoHitSeconds, longestNoHitSeconds.coerceAtLeast(0)))
-            .putBoolean(KEY_UNTOUCHABLE, hasUntouchableWin || untouchableWin)
+            .putBoolean(KEY_UNTOUCHABLE, hasFlawlessClear || flawlessClear)
             .apply()
     }
 
@@ -125,7 +125,7 @@ class AppPrefs(context: Context) {
      * Records the outcome of finishing [level] with [stars] (keeping the best
      * rating) and unlocks the next level when the current frontier is cleared.
      */
-    fun recordLevelWin(level: Int, stars: Int) {
+    fun recordLevelCleared(level: Int, stars: Int) {
         val best = maxOf(starsForLevel(level), stars.coerceIn(0, 3))
         val editor = prefs.edit().putInt(KEY_STARS_PREFIX + level, best)
         if (level >= unlockedLevel) editor.putInt(KEY_UNLOCKED_LEVEL, level + 1)
@@ -151,7 +151,7 @@ class AppPrefs(context: Context) {
         const val KEY_FOX_DODGED = "fox_dodged"
         const val KEY_SHIELD_BLOCKS = "shield_blocks"
         const val KEY_SURVIVE_SECONDS = "survive_seconds"
-        const val KEY_UNTOUCHABLE = "untouchable_win"
+        const val KEY_UNTOUCHABLE = "flawless_clear"
         const val KEY_MUSIC = "music_enabled"
         const val KEY_SFX = "sfx_enabled"
     }

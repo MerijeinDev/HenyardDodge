@@ -1,51 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/sky_blue">
 
+    <!-- Full-bleed background -->
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
-        android:src="@drawable/bg_3" />
+        android:src="@drawable/bg_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <!-- Loader sits on this horizontal guideline (percent → scales to any height) -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glLoaderY"
         android:layout_width="wrap_content"
-        android:layout_height="222dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical">
-        <FrameLayout
-            android:layout_width="300dp"
-            android:layout_height="52dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.46" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@null"
-                android:scaleType="fitXY"
-                android:src="@drawable/loader_clear" />
+    <FrameLayout
+        android:layout_width="300dp"
+        android:layout_height="52dp"
+        app:layout_constraintBottom_toBottomOf="@id/glLoaderY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/glLoaderY">
 
-            <ImageView
-                android:id="@+id/loaderFill"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/loading"
-                android:scaleType="fitXY"
-                android:src="@drawable/loader_fill" />
-        </FrameLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/loader_clear" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/loaderFill"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/loading"
+            android:scaleType="fitXY"
+            android:src="@drawable/loader_fill" />
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/running_chicken"
+        style="@style/SplashChicken"
         android:layout_width="280dp"
         android:layout_height="320dp"
-        style="@style/SplashChicken"
         android:contentDescription="@null"
         android:scaleType="fitCenter"
-        android:src="@drawable/running_chicken" />
+        android:src="@drawable/running_chicken"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

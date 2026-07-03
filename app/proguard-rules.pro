@@ -1,21 +1,22 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# ViewModel (created via ViewModelProvider.Factory reflection)
+-keep class * extends androidx.lifecycle.ViewModel { <init>(...); }
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Fragment (FragmentManager recreates by class name after rotation)
+-keep class * extends androidx.fragment.app.Fragment { *; }
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Enum (values/valueOf by name, e.g. when serialized to Prefs)
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Kotlin data class component functions (destructuring)
+-keepclassmembers class * { public ** component*(); }
+
+# Source/line info for crash reports
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
+
+# Custom Views inflated from XML layouts (LayoutInflater resolves by exact name)
+-keep class henyard.dodgerush.dewpond.game.GameView { *; }
+-keep class henyard.dodgerush.dewpond.widget.OutlineTextView { *; }

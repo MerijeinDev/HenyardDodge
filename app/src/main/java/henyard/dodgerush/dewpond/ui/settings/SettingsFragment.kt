@@ -9,6 +9,7 @@ import henyard.dodgerush.dewpond.databinding.FragmentSettingsBinding
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
 import henyard.dodgerush.dewpond.util.SoundManager
+import henyard.dodgerush.dewpond.util.setClickSound
 import henyard.dodgerush.dewpond.widget.OutlineTextView
 
 /**
@@ -24,12 +25,12 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         val binding = FragmentSettingsBinding.bind(view)
         prefs = AppPrefs(requireContext())
 
-        binding.btnBack.setOnClickListener { findNavController().popBackStack() }
+        binding.btnBack.setClickSound { findNavController().popBackStack() }
 
         renderToggle(binding.toggleMusic, binding.toggleMusicLabel, prefs.musicEnabled)
         renderToggle(binding.toggleSound, binding.toggleSoundLabel, prefs.sfxEnabled)
 
-        binding.toggleMusic.setOnClickListener {
+        binding.toggleMusic.setClickSound {
             prefs.musicEnabled = !prefs.musicEnabled
             renderToggle(binding.toggleMusic, binding.toggleMusicLabel, prefs.musicEnabled)
             SoundManager.applyMusicSetting(requireContext())

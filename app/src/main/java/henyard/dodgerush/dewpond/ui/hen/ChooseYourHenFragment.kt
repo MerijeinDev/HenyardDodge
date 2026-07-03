@@ -9,6 +9,7 @@ import henyard.dodgerush.dewpond.databinding.ItemHenCellBinding
 import henyard.dodgerush.dewpond.game.HenCatalog
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
+import henyard.dodgerush.dewpond.util.setClickSound
 
 /**
  * Lets the player pick one of the hens and set a nickname, then confirm. The
@@ -31,7 +32,7 @@ class ChooseYourHenFragment : BaseFragment(R.layout.fragment_choose_your_hen) {
         )
         cells.forEachIndexed { index, cell ->
             cell.henImage.setImageResource(HenCatalog.hens[index].thumbnailRes)
-            cell.root.setOnClickListener { select(index) }
+            cell.root.setClickSound { select(index) }
         }
 
         select(HenCatalog.clampIndex(prefs.selectedHenIndex))
@@ -39,8 +40,8 @@ class ChooseYourHenFragment : BaseFragment(R.layout.fragment_choose_your_hen) {
         prefs.nickname.takeIf { it.isNotBlank() }?.let { binding.nicknameInput.setText(it) }
 
         binding.btnConfirm.label.text = getString(R.string.confirm)
-        binding.btnConfirm.root.setOnClickListener { confirm(binding) }
-        binding.btnBack.setOnClickListener { findNavController().popBackStack() }
+        binding.btnConfirm.root.setClickSound { confirm(binding) }
+        binding.btnBack.setClickSound { findNavController().popBackStack() }
     }
 
     private fun select(index: Int) {

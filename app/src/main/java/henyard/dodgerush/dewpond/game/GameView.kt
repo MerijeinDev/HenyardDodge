@@ -13,6 +13,7 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import henyard.dodgerush.dewpond.R
+import henyard.dodgerush.dewpond.util.SoundManager
 import kotlin.math.hypot
 import kotlin.random.Random
 
@@ -21,7 +22,7 @@ import kotlin.random.Random
  *
  * The player chicken follows the finger inside the pen. Obstacles fall from the
  * top and cost a life on contact; coins/grain add score; shield/magnet/heart are
- * power-ups. Survive the timer to win.
+ * power-ups. Survive the timer to clear the level.
  */
 class GameView @JvmOverloads constructor(
     context: Context,
@@ -188,6 +189,9 @@ class GameView @JvmOverloads constructor(
         kindBitmaps[kind] = decodeScaledToWidth(res, targetWidth.toInt())
     }
 
+    /** Fires a one-shot effect (safe to call from the game thread). */
+    private fun sfx(sfx: SoundManager.Sfx) = SoundManager.playSfx(context, sfx)
+
     /** Rasterizes a vector drawable to a bitmap of [targetWidth], preserving aspect. */
     private fun bitmapFromVector(res: Int, targetWidth: Int): Bitmap {
         val drawable = androidx.core.content.ContextCompat.getDrawable(context, res)!!
@@ -322,10 +326,11 @@ class GameView @JvmOverloads constructor(
                 bitmap = bmp,
             )
             entities.add(e)
+            sfx(SoundManager.Sfx.FOX_DASH)
         } else {
             val x = randomX(r)
             val e = Entity(kind, x, -r, 0f, speed, r, bmp)
-            e.spin = (Random.nextFloat() - 0.5f) * 120f
+            e.rotationSpeed = (Random.nextFloat() - 0.5f) * 120f
             e.telegraph = 0.5f
             entities.add(e)
         }
@@ -367,6 +372,12 @@ class GameView @JvmOverloads constructor(
             val e = it.next()
             if (e.telegraph > 0f) {
                 e.telegraph -= dt
+                // The marker just resolved into an impact: play its landing cue.
+                if (e.telegraph <= 0f) when (e.kind) {
+                    EntityKind.HAY -> sfx(SoundManager.Sfx.HAY_THUD)
+                    EntityKind.BARREL -> sfx(SoundManager.Sfx.BARREL)
+                    else -> {}
+                }
                 continue
             }
 
@@ -385,7 +396,7 @@ class GameView @JvmOverloads constructor(
                 e.x += e.vx * moveDt
                 e.y += e.vy * moveDt
             }
-            e.rotation += e.spin * moveDt
+            e.rotation += e.rotationSpeed * moveDt
 
             // off-screen cull (an obstacle that leaves the pen was dodged)
             if (e.y - e.radius > height || e.x < -e.radius * 2 || e.x > width + e.radius * 2) {
@@ -404,18 +415,21 @@ class GameView @JvmOverloads constructor(
                     EntityCategory.OBSTACLE -> {
                         if (shieldMs > 0) {
                             shieldBlocks++
+                            sfx(SoundManager.Sfx.SHIELD)
                             it.remove()
                         } else if (iframeMs <= 0) {
                             if (toughCharge) {
                                 // Tough Hat absorbs the first hit each level.
                                 toughCharge = false
                                 iframeMs = 1200f
+                                sfx(SoundManager.Sfx.SHIELD)
                                 it.remove()
                             } else {
                                 lives -= 1
                                 hits++
                                 noHitMs = 0
                                 iframeMs = 1200f
+                                sfx(SoundManager.Sfx.HIT)
                                 listener?.let { l -> post { l.onLivesChanged(lives) } }
                                 it.remove()
                                 if (lives <= 0) endGame(false)
@@ -426,14 +440,17 @@ class GameView @JvmOverloads constructor(
                         if (e.kind == EntityKind.COIN) {
                             score += 10
                             coins++
+                            sfx(SoundManager.Sfx.COIN)
                         } else {
                             score += 5
                             grainCollected++
+                            sfx(SoundManager.Sfx.GRAIN)
                         }
                         listener?.let { l -> post { l.onScoreChanged(score) } }
                         it.remove()
                     }
                     EntityCategory.POWERUP -> {
+                        sfx(SoundManager.Sfx.BONUS)
                         when (e.kind) {
                             EntityKind.SHIELD ->
                                 shieldMs = if (skinAbility == SkinAbility.LONG_SHIELD) 12_000f else 6_000f
@@ -456,11 +473,11 @@ class GameView @JvmOverloads constructor(
         if (timeLeftMs <= 0 && !finished) endGame(true)
     }
 
-    private fun endGame(won: Boolean) {
+    private fun endGame(cleared: Boolean) {
         if (finished) return
         finished = true
         val stars = when {
-            !won -> 0
+            !cleared -> 0
             score >= 400 -> 3
             score >= 200 -> 2
             else -> 1
@@ -468,7 +485,7 @@ class GameView @JvmOverloads constructor(
         val result = GameResult(
             score = score,
             coinsCollected = coins,
-            won = won,
+            cleared = cleared,
             stars = stars,
             grain = grainCollected,
             hazardsDodged = hazardsDodged,
@@ -551,7 +568,7 @@ class GameView @JvmOverloads constructor(
 data class GameResult(
     val score: Int,
     val coinsCollected: Int,
-    val won: Boolean,
+    val cleared: Boolean,
     val stars: Int,
     val grain: Int,
     val hazardsDodged: Int,

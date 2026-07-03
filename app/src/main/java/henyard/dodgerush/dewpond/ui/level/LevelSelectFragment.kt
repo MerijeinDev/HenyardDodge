@@ -14,6 +14,8 @@ import henyard.dodgerush.dewpond.databinding.ItemLevelBinding
 import henyard.dodgerush.dewpond.game.Levels
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
+import henyard.dodgerush.dewpond.util.SoundManager
+import henyard.dodgerush.dewpond.util.setClickSound
 
 /**
  * Grid of levels on the brown board. Levels up to [AppPrefs.unlockedLevel] are
@@ -27,7 +29,7 @@ class LevelSelectFragment : BaseFragment(R.layout.fragment_level_select) {
         val binding = FragmentLevelSelectBinding.bind(view)
         val prefs = AppPrefs(requireContext())
 
-        binding.btnBack.setOnClickListener { findNavController().popBackStack() }
+        binding.btnBack.setClickSound { findNavController().popBackStack() }
 
         binding.levelGrid.layoutManager = GridLayoutManager(requireContext(), COLUMNS)
         binding.levelGrid.adapter = LevelAdapter(
@@ -38,6 +40,7 @@ class LevelSelectFragment : BaseFragment(R.layout.fragment_level_select) {
     }
 
     private fun startLevel(level: Int) {
+        SoundManager.playSfx(requireContext(), SoundManager.Sfx.CLICK)
         findNavController().navigate(R.id.action_level_to_game, bundleOf(ARG_LEVEL to level))
     }
 

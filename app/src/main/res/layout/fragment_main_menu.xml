@@ -47,19 +47,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/cd_coins"
-            android:scaleType="fitXY"
             android:src="@drawable/coin_with_plate" />
 
         <henyard.dodgerush.dewpond.widget.OutlineTextView
             android:id="@+id/coinsText"
-            style="@style/Text.Henyard.OutlinedYellow"
+            style="@style/Text.Henyard.OutlinedYellow.CoinBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"
             android:layout_marginEnd="14dp"
             tools:text="@string/default_coins"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-            android:textSize="@dimen/text_coins" />
+            />
     </FrameLayout>
 
 
@@ -99,14 +98,14 @@
             android:src="@drawable/btn_play" />
 
         <henyard.dodgerush.dewpond.widget.OutlineTextView
-            style="@style/Text.Henyard.Outlined"
+            style="@style/Text.Henyard.ShopTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:text="@string/play"
-            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-            android:textSize="@dimen/text_play" />
+            android:textSize="@dimen/text_play"
+            />
     </FrameLayout>
 
     <LinearLayout

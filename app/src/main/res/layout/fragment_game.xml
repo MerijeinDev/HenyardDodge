@@ -31,13 +31,14 @@
         <henyard.dodgerush.dewpond.widget.OutlineTextView
             android:id="@+id/timerText"
             style="@style/Text.Henyard.Outlined"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="178dp"
+            android:layout_height="44dp"
             android:background="@drawable/timer_pill"
             android:gravity="center"
-            android:minWidth="120dp"
+            android:includeFontPadding="false"
             android:text="@string/time_zero"
-            android:textSize="@dimen/text_play"
+            android:textSize="24sp"
+            app:outlineColor="@color/timer_stroke"
             android:layout_marginTop="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,21 +100,21 @@
                 android:orientation="vertical">
 
                 <henyard.dodgerush.dewpond.widget.OutlineTextView
-                    style="@style/Text.Henyard.Outlined"
+                    style="@style/Text.Henyard.HudScoreLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/score_label"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:paddingHorizontal="2dp"/>
 
                 <henyard.dodgerush.dewpond.widget.OutlineTextView
                     android:id="@+id/scoreText"
-                    style="@style/Text.Henyard.Outlined"
+                    style="@style/Text.Henyard.HudScoreValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="0"
                     android:padding="2dp"
-                    android:textSize="@dimen/text_score" />
+                    android:textSize="20sp" />
             </LinearLayout>
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -142,13 +143,13 @@
 
             <!-- Title on the wooden banner -->
             <henyard.dodgerush.dewpond.widget.OutlineTextView
-                style="@style/Text.Henyard.Outlined.ShopHeader"
+                style="@style/Text.Henyard.Outlined.ResultTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|top"
                 android:layout_marginTop="16dp"
                 android:text="@string/paused"
-                android:textSize="26sp" />
+                android:textSize="32sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -180,7 +181,7 @@
         </FrameLayout>
     </FrameLayout>
 
-    <!-- Game over / win overlay -->
+    <!-- Game over / cleared overlay -->
     <FrameLayout
         android:id="@+id/resultOverlay"
         android:layout_width="match_parent"
@@ -200,17 +201,17 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@null"
                 android:scaleType="fitCenter"
-                android:src="@drawable/win_over_plate" />
+                android:src="@drawable/result_plate" />
 
             <!-- Title sits on the red ribbon at the top of the plate -->
             <henyard.dodgerush.dewpond.widget.OutlineTextView
                 android:id="@+id/resultTitle"
-                style="@style/Text.Henyard.Outlined.ShopHeader"
+                style="@style/Text.Henyard.Outlined.ResultTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|top"
                 android:layout_marginTop="10dp"
-                android:text="@string/you_win"
+                android:text="@string/you_cleared"
                 android:textSize="32sp" />
 
             <!-- Stars sit just below the title -->
@@ -265,9 +266,9 @@
                     android:src="@drawable/gameover_chicken"
                     android:visibility="gone" />
 
-                <!-- Win-only result table: coin reward, longest no-hit, grain -->
+                <!-- Cleared-only result table: coin reward, longest no-hit, grain -->
                 <LinearLayout
-                    android:id="@+id/winStats"
+                    android:id="@+id/clearStats"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -293,12 +294,13 @@
 
                             <henyard.dodgerush.dewpond.widget.OutlineTextView
                                 android:id="@+id/resultReward"
-                                style="@style/Text.Henyard.OutlinedYellow"
+                                style="@style/Text.Henyard.OutlinedYellow.Reward"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:text="@string/time_zero"
-                                android:textSize="36sp" />
+                                android:textSize="36sp"
+                                android:paddingHorizontal="2dp"/>
                         </LinearLayout>
                     </FrameLayout>
 
@@ -310,16 +312,17 @@
                         android:paddingHorizontal="16dp">
 
                         <henyard.dodgerush.dewpond.widget.OutlineTextView
-                            style="@style/Text.Henyard.Outlined"
+                            style="@style/Text.Henyard.ResultStatLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
                             android:text="@string/result_largest_no_hit"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:paddingHorizontal="2dp"/>
 
                         <henyard.dodgerush.dewpond.widget.OutlineTextView
                             android:id="@+id/resultNoHit"
-                            style="@style/Text.Henyard.Outlined"
+                            style="@style/Text.Henyard.ResultStatValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end|center_vertical"
@@ -336,21 +339,22 @@
                         android:paddingHorizontal="16dp">
 
                         <henyard.dodgerush.dewpond.widget.OutlineTextView
-                            style="@style/Text.Henyard.Outlined"
+                            style="@style/Text.Henyard.ResultStatLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
                             android:text="@string/result_grain_collected"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:paddingHorizontal="2dp"/>
 
                         <henyard.dodgerush.dewpond.widget.OutlineTextView
                             android:id="@+id/resultGrain"
-                            style="@style/Text.Henyard.Outlined"
+                            style="@style/Text.Henyard.ResultStatValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end|center_vertical"
                             android:paddingHorizontal="2dp"
-                            android:textSize="15sp"
+                            android:textSize="20sp"
                             tools:text="99999" />
                     </FrameLayout>
                 </LinearLayout>

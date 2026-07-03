@@ -37,7 +37,7 @@ class Entity(
 ) {
     var alive: Boolean = true
     var rotation: Float = 0f
-    var spin: Float = 0f
+    var rotationSpeed: Float = 0f
     /** Telegraph timer (seconds) before an obstacle becomes active/visible falling. */
     var telegraph: Float = 0f
 

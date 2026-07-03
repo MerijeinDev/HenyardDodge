@@ -15,6 +15,8 @@ import henyard.dodgerush.dewpond.game.ShopCatalog
 import henyard.dodgerush.dewpond.game.ShopItem
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
+import henyard.dodgerush.dewpond.util.SoundManager
+import henyard.dodgerush.dewpond.util.setClickSound
 
 /**
  * Shop screen: horizontally swipeable pages, each a 3-column grid of power-up
@@ -31,7 +33,7 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
         binding = FragmentShopBinding.bind(view)
         prefs = AppPrefs(requireContext())
 
-        binding.btnBack.setOnClickListener { findNavController().popBackStack() }
+        binding.btnBack.setClickSound { findNavController().popBackStack() }
         updateBalance()
 
         val pages = ShopCatalog.pages
@@ -49,11 +51,13 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
     private fun onBuy(item: ShopItem): Boolean {
         if (prefs.ownsShopItem(item.id)) return false
         if (prefs.coins < item.price) {
+            SoundManager.playSfx(requireContext(), SoundManager.Sfx.ERROR)
             Toast.makeText(requireContext(), R.string.shop_not_enough, Toast.LENGTH_SHORT).show()
             return false
         }
         prefs.coins -= item.price
         prefs.setShopItemOwned(item.id)
+        SoundManager.playSfx(requireContext(), SoundManager.Sfx.BONUS)
         updateBalance()
         return true
     }
@@ -61,6 +65,7 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
     /** Equips an owned skin and refreshes the grid so labels update everywhere. */
     private fun onEquip(item: ShopItem) {
         if (!prefs.ownsShopItem(item.id)) return
+        SoundManager.playSfx(requireContext(), SoundManager.Sfx.CLICK)
         prefs.equippedSkin = item.id
         val current = binding.shopPager.currentItem
         binding.shopPager.adapter =
