@@ -97,4 +97,21 @@
     <string name="ach_coin_dodger_desc">Collect 5000 coins total.</string>
     <string name="ach_fox_foiler">Fox Foiler</string>
     <string name="ach_fox_foiler_desc">Dodge 200 fox dashes total.</string>
+
+    <string name="profile">PROFILE</string>
+    <string name="profile_default_name">Player</string>
+    <string name="profile_edit">EDIT</string>
+    <string name="profile_overall_stats">Overall Stats</string>
+    <string name="profile_best_records">Best Records</string>
+    <string name="profile_total_score">Total Score</string>
+    <string name="profile_level_reached">Level Reached</string>
+    <string name="profile_achievements">Achievements</string>
+    <string name="profile_coins">Coins</string>
+    <string name="profile_best_run_score">Best Run Score</string>
+    <string name="profile_longest_no_hit">Longest No-Hit Time</string>
+    <string name="profile_edit_title">Edit name</string>
+    <string name="profile_edit_hint">Enter your name</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="cd_avatar">Player avatar</string>
 </resources>

@@ -30,7 +30,9 @@ class MainMenuFragment : BaseFragment(R.layout.fragment_main_menu) {
         binding.btnAchievements.setOnClickListener {
             findNavController().navigate(R.id.action_menu_to_achievements)
         }
-        binding.btnProfile.setOnClickListener { notImplemented("Profile") }
+        binding.btnProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_menu_to_profile)
+        }
         binding.btnLeaderboard.setOnClickListener { notImplemented("Leaderboard") }
     }
 

@@ -105,6 +105,7 @@ class GameFragment : BaseFragment(R.layout.fragment_game), GameView.Listener {
     override fun onGameOver(score: Int, coins: Int, won: Boolean, stars: Int) {
         val prefs = AppPrefs(requireContext())
         if (coins > 0) prefs.coins += coins
+        prefs.recordRunScore(score)
         if (won) prefs.recordLevelWin(level, stars)
         binding.resultTitle.setText(if (won) R.string.you_win else R.string.game_over)
         binding.resultScore.text = getString(R.string.score_label) + "  " + score

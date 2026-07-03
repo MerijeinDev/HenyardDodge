@@ -110,6 +110,43 @@
         <item name="android:maxLines">1</item>
     </style>
 
+    <!-- Profile player name: solid brown, extra-bold (Figma #834005). -->
+    <style name="Text.Henyard.ProfileName">
+        <item name="android:textSize">@dimen/text_profile_name</item>
+        <item name="android:textColor">@color/shop_text_brown</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- Profile stat row label: dark-brown, bold. -->
+    <style name="Text.Henyard.ProfileStatLabel">
+        <item name="android:textSize">@dimen/text_profile_stat_label</item>
+        <item name="android:textColor">@color/ach_text</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!-- Profile stat row value: dark-brown, semi-bold, larger. -->
+    <style name="Text.Henyard.ProfileStatValue">
+        <item name="android:textSize">@dimen/text_profile_value</item>
+        <item name="android:textColor">@color/ach_text</item>
+        <item name="android:fontFamily">@font/fredoka_semibold</item>
+        <item name="fontFamily">@font/fredoka_semibold</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!-- Profile EDIT button label: white fill + #C34800 stroke, extra-bold. -->
+    <style name="Text.Henyard.OutlinedYellow.ProfileEdit">
+        <item name="android:textSize">@dimen/text_profile_edit</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+        <item name="outlineWidth">2dp</item>
+    </style>
+
     <!-- Outlined cartoon text: white/beige fill + #C34800 stroke.
          Apply ONLY to henyard.dodgerush.dewpond.widget.OutlineTextView.
          Swap android:textColor to @color/cream for the beige variant. -->

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sky_blue">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_2" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="20dp">
+
+        <!-- Top bar: back button + header plate -->
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="60dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_back"
+            android:src="@drawable/btn_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/headerPlate"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintBottom_toBottomOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintTop_toTopOf="@id/btnBack">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/header_plate" />
+
+            <henyard.dodgerush.dewpond.widget.OutlineTextView
+                style="@style/Text.Henyard.Outlined.ShopHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/profile"
+                android:textSize="22sp"
+                app:outlineWidth="3dp" />
+        </FrameLayout>
+
+        <!-- Main board -->
+        <ScrollView
+            android:id="@+id/board"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="76dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/profile_board"
+            android:clipToPadding="false"
+            android:paddingTop="248dp"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="18dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerPlate">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <!-- Overall Stats banner -->
+                <include
+                    layout="@layout/view_profile_section"
+                    android:id="@+id/sectionOverall"
+                    android:layout_width="160dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center_horizontal" />
+
+                <include
+                    android:id="@+id/rowTotalScore"
+                    layout="@layout/view_profile_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="10dp" />
+
+                <include
+                    android:id="@+id/rowLevelReached"
+                    layout="@layout/view_profile_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp" />
+
+                <include
+                    android:id="@+id/rowAchievements"
+                    layout="@layout/view_profile_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp" />
+
+                <include
+                    android:id="@+id/rowCoins"
+                    layout="@layout/view_profile_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp" />
+
+                <!-- Best Records banner -->
+                <include
+                    layout="@layout/view_profile_section"
+                    android:id="@+id/sectionRecords"
+                    android:layout_width="160dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="14dp" />
+
+                <include
+                    android:id="@+id/rowBestRun"
+                    layout="@layout/view_profile_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="10dp" />
+
+                <include
+                    android:id="@+id/rowNoHit"
+                    layout="@layout/view_profile_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- Floating header: avatar with the name plate banner across its
+             bottom, then the EDIT button. Drawn above the board. -->
+        <LinearLayout
+            android:id="@+id/profileHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/board"
+            app:layout_constraintStart_toStartOf="@id/board"
+            app:layout_constraintTop_toBottomOf="@id/headerPlate">
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="185dp"
+                android:layout_height="245dp"
+                android:contentDescription="@string/cd_avatar"
+                android:src="@drawable/profile_avatar" />
+
+            <!-- Name plate banner overlapping the avatar's bottom -->
+            <FrameLayout
+                android:layout_width="270dp"
+                android:layout_height="106dp"
+                android:layout_marginTop="-46dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/profile_name_plate" />
+
+                <View
+                    android:layout_width="180dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/profile_name_input" />
+
+                <TextView
+                    android:id="@+id/playerName"
+                    style="@style/Text.Henyard.ProfileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="40dp"
+                    tools:text="Player" />
+            </FrameLayout>
+
+            <!-- Edit button -->
+            <FrameLayout
+                android:id="@+id/btnEdit"
+                android:layout_width="100dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="-26dp"
+                android:background="?attr/selectableItemBackgroundBorderless">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/profile_edit_btn" />
+
+                <henyard.dodgerush.dewpond.widget.OutlineTextView
+                    style="@style/Text.Henyard.OutlinedYellow.ProfileEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/profile_edit" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

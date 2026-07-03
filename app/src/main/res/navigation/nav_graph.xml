@@ -83,6 +83,9 @@
         <action
             android:id="@+id/action_menu_to_achievements"
             app:destination="@id/achievementsFragment" />
+        <action
+            android:id="@+id/action_menu_to_profile"
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment
@@ -96,6 +99,12 @@
         android:name="henyard.dodgerush.dewpond.ui.achievement.AchievementsFragment"
         android:label="Achievements"
         tools:layout="@layout/fragment_achievements" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="henyard.dodgerush.dewpond.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/levelSelectFragment"
