@@ -38,6 +38,60 @@
         <item name="android:textColor">@color/text_brown</item>
     </style>
 
+    <!-- Shop card item title: white fill + brown stroke, bold (Figma). -->
+    <style name="Text.Henyard.ShopTitle" parent="Text.Henyard.Outlined">
+        <item name="android:textSize">@dimen/text_shop_title</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+        <item name="outlineColor">@color/shop_text_brown</item>
+        <item name="outlineWidth">2dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!-- Shop locked-slot title: white fill + gray stroke "Level N" (Figma). -->
+    <style name="Text.Henyard.ShopTitle.Locked">
+        <item name="outlineColor">@color/shop_lock_stroke</item>
+    </style>
+
+    <!-- Shop card item description: solid brown, semi-bold, up to two lines. -->
+    <style name="Text.Henyard.ShopDesc">
+        <item name="android:textSize">@dimen/text_shop_desc</item>
+        <item name="android:textColor">@color/shop_text_brown</item>
+        <item name="android:fontFamily">@font/fredoka_semibold</item>
+        <item name="fontFamily">@font/fredoka_semibold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minLines">2</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <!-- Shop price on the yellow buy button: white fill + #C34800 stroke, extra-bold. -->
+    <style name="Text.Henyard.OutlinedYellow.ShopPrice">
+        <item name="android:textSize">@dimen/text_shop_price</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+        <item name="outlineWidth">2dp</item>
+    </style>
+
+    <!-- Shop header "SHOP": gold fill + dark-brown stroke, extra-bold (Figma). -->
+    <style name="Text.Henyard.Outlined.ShopHeader">
+        <item name="android:textColor">@color/shop_header_fill</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+        <item name="outlineColor">@color/shop_header_stroke</item>
+    </style>
+
+    <!-- Shop coin balance: yellow fill + brown stroke, extra-bold (Figma). -->
+    <style name="Text.Henyard.OutlinedYellow.CoinBalance">
+        <item name="android:textSize">@dimen/text_coins</item>
+        <item name="android:textColor">@color/coin_text_fill</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+        <item name="outlineColor">@color/coin_text_stroke</item>
+        <item name="outlineWidth">2dp</item>
+    </style>
+
     <!-- Outlined cartoon text: white/beige fill + #C34800 stroke.
          Apply ONLY to henyard.dodgerush.dewpond.widget.OutlineTextView.
          Swap android:textColor to @color/cream for the beige variant. -->

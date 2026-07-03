@@ -28,6 +28,21 @@ class AppPrefs(context: Context) {
         get() = prefs.getInt(KEY_UNLOCKED_LEVEL, 1)
         set(value) = prefs.edit().putInt(KEY_UNLOCKED_LEVEL, value).apply()
 
+    /** Player's coin balance, earned from finishing games and spent in the shop. */
+    var coins: Int
+        get() = prefs.getInt(KEY_COINS, 0)
+        set(value) = prefs.edit().putInt(KEY_COINS, value.coerceAtLeast(0)).apply()
+
+    /** Whether a shop item (by id) has been purchased. */
+    fun ownsShopItem(id: String): Boolean =
+        prefs.getStringSet(KEY_OWNED_ITEMS, emptySet()).orEmpty().contains(id)
+
+    /** Marks a shop item as owned. */
+    fun setShopItemOwned(id: String) {
+        val owned = prefs.getStringSet(KEY_OWNED_ITEMS, emptySet()).orEmpty().toMutableSet()
+        if (owned.add(id)) prefs.edit().putStringSet(KEY_OWNED_ITEMS, owned).apply()
+    }
+
     /** Best star rating (0..3) earned on a given level; 0 means not yet cleared. */
     fun starsForLevel(level: Int): Int = prefs.getInt(KEY_STARS_PREFIX + level, 0)
 
@@ -49,5 +64,7 @@ class AppPrefs(context: Context) {
         const val KEY_NICKNAME = "nickname"
         const val KEY_UNLOCKED_LEVEL = "unlocked_level"
         const val KEY_STARS_PREFIX = "stars_level_"
+        const val KEY_COINS = "coins"
+        const val KEY_OWNED_ITEMS = "owned_shop_items"
     }
 }

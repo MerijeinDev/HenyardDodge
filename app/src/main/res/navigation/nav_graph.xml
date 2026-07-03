@@ -77,7 +77,16 @@
         <action
             android:id="@+id/action_menu_to_level_select"
             app:destination="@id/levelSelectFragment" />
+        <action
+            android:id="@+id/action_menu_to_shop"
+            app:destination="@id/shopFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="henyard.dodgerush.dewpond.ui.shop.ShopFragment"
+        android:label="Shop"
+        tools:layout="@layout/fragment_shop" />
 
     <fragment
         android:id="@+id/levelSelectFragment"

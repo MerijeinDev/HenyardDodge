@@ -15,4 +15,7 @@
     <dimen name="text_play">30sp</dimen>
     <dimen name="text_coins">20sp</dimen>
     <dimen name="text_score">22sp</dimen>
+    <dimen name="text_shop_title">13sp</dimen>
+    <dimen name="text_shop_desc">11sp</dimen>
+    <dimen name="text_shop_price">14sp</dimen>
 </resources>

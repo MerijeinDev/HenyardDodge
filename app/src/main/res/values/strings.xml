@@ -56,4 +56,20 @@
 
     <string name="select_level">Select Level</string>
     <string name="cd_locked_level">Locked level</string>
+
+    <string name="shop">SHOP</string>
+    <string name="shop_owned">OWNED</string>
+    <string name="shop_locked_level">Level %1$d</string>
+    <string name="shop_not_enough">Not enough coins</string>
+
+    <string name="shop_basic_hen">Basic Hen</string>
+    <string name="shop_basic_hen_desc">No bonus</string>
+    <string name="shop_slim_body">Slim Body</string>
+    <string name="shop_slim_body_desc">Hitbox -25%</string>
+    <string name="shop_tough_hat">Tough Hat</string>
+    <string name="shop_tough_hat_desc">First hit is free</string>
+    <string name="shop_grain_magnet">Grain Magnet</string>
+    <string name="shop_grain_magnet_desc">Grain attracts from distance</string>
+    <string name="shop_long_shield">Long Shield</string>
+    <string name="shop_long_shield_desc">Shield lasts 2x longer</string>
 </resources>

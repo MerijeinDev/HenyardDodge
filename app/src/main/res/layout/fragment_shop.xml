@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sky_blue">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_2" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="20dp">
+
+        <!-- Top bar: back button + header plate -->
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="60dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_back"
+            android:src="@drawable/btn_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/headerPlate"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintBottom_toBottomOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintTop_toTopOf="@id/btnBack">
+
+            <ImageView
+                android:id="@+id/btnShop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/header_plate" />
+
+            <henyard.dodgerush.dewpond.widget.OutlineTextView
+                style="@style/Text.Henyard.Outlined.ShopHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/shop"
+                android:textSize="22sp"
+                app:outlineWidth="3dp" />
+        </FrameLayout>
+
+        <!-- Coin balance -->
+        <FrameLayout
+            android:id="@+id/coinPlate"
+            android:layout_width="150dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/headerPlate"
+            app:layout_constraintStart_toStartOf="@+id/headerPlate"
+            app:layout_constraintTop_toBottomOf="@+id/headerPlate">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/cd_coins"
+                android:scaleType="fitXY"
+                android:src="@drawable/coin_with_plate" />
+
+            <henyard.dodgerush.dewpond.widget.OutlineTextView
+                android:id="@+id/coinsText"
+                style="@style/Text.Henyard.OutlinedYellow.CoinBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="16dp"
+                tools:text="@string/default_coins" />
+        </FrameLayout>
+
+        <!-- Page dots -->
+        <LinearLayout
+            android:id="@+id/pageDots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Swipeable item grid -->
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/shopPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@id/pageDots"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/coinPlate" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
