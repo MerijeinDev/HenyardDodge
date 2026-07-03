@@ -8,7 +8,9 @@ import androidx.navigation.fragment.findNavController
 import henyard.dodgerush.dewpond.R
 import henyard.dodgerush.dewpond.databinding.FragmentGameBinding
 import henyard.dodgerush.dewpond.game.GameView
+import henyard.dodgerush.dewpond.game.HenCatalog
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
+import henyard.dodgerush.dewpond.util.AppPrefs
 
 /**
  * Gameplay screen (portrait). Hosts the [GameView] and the HUD/overlays.
@@ -26,6 +28,8 @@ class GameFragment : BaseFragment(R.layout.fragment_game), GameView.Listener {
 
         heartViews = listOf(binding.heart1, binding.heart2, binding.heart3)
 
+        binding.gameView.heroDrawableRes =
+            HenCatalog.spriteFor(AppPrefs(requireContext()).selectedHenIndex)
         binding.gameView.listener = this
 
         binding.btnPause.setOnClickListener { showPause() }

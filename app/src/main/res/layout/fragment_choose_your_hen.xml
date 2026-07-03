@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sky_blue">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_1" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="20dp">
+
+        <!-- Top bar: back button + header plate -->
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="52dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_back"
+            android:src="@drawable/btn_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/headerPlate"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_marginHorizontal="12dp"
+            app:layout_constraintBottom_toBottomOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintTop_toTopOf="@id/btnBack">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/header_plate" />
+
+            <henyard.dodgerush.dewpond.widget.OutlineTextView
+                style="@style/Text.Henyard.Outlined"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/choose_your_hen"
+                android:textSize="16sp"
+                app:outlineWidth="3dp" />
+        </FrameLayout>
+
+        <!-- Hen picker grid (3 x 2) -->
+        <LinearLayout
+            android:id="@+id/henGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnBack">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <include layout="@layout/item_hen_cell" android:id="@+id/hen0" />
+
+                <include layout="@layout/item_hen_cell" android:id="@+id/hen1" />
+
+                <include layout="@layout/item_hen_cell" android:id="@+id/hen2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <include layout="@layout/item_hen_cell" android:id="@+id/hen3" />
+
+                <include layout="@layout/item_hen_cell" android:id="@+id/hen4" />
+
+                <include layout="@layout/item_hen_cell" android:id="@+id/hen5" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Nickname panel -->
+        <FrameLayout
+            android:id="@+id/nicknamePanel"
+            android:layout_width="273dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/henGrid">
+
+            <ImageView
+                android:layout_width="273dp"
+                android:layout_height="108dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/nickname_panel" />
+
+            <FrameLayout
+                android:layout_width="161dp"
+                android:layout_height="44dp"
+                android:layout_gravity="top|center_horizontal">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/nickname_tab" />
+
+                <henyard.dodgerush.dewpond.widget.OutlineTextView
+                    style="@style/Text.Henyard.Outlined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/your_nickname"
+                    android:textSize="12sp"
+                    app:outlineWidth="2dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="198dp"
+                android:layout_height="41dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="26dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/nickname_field" />
+
+                <EditText
+                    android:id="@+id/nicknameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:fontFamily="@font/fredoka"
+                    android:gravity="center"
+                    android:hint="@string/default_nickname"
+                    android:importantForAutofill="no"
+                    android:inputType="textPersonName|textCapWords"
+                    android:maxLength="14"
+                    android:maxLines="1"
+                    android:paddingHorizontal="12dp"
+                    android:textColor="@color/text_brown"
+                    android:textColorHint="@color/text_brown"
+                    android:textSize="18sp"
+                    tools:text="Player" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <!-- Confirm -->
+        <include
+            android:id="@+id/btnConfirm"
+            layout="@layout/widget_button_yellow"
+            android:layout_width="230dp"
+            android:layout_height="90dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nicknamePanel"
+            app:layout_constraintVertical_bias="0.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

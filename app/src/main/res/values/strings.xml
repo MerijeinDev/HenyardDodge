@@ -46,4 +46,11 @@
     <string name="next">NEXT</string>
     <string name="start">START</string>
     <string name="cd_onboarding">How to play</string>
+
+    <string name="choose_your_hen">CHOOSE YOUR HEN</string>
+    <string name="your_nickname">YOUR NICKNAME</string>
+    <string name="confirm">CONFIRM</string>
+    <string name="default_nickname">Player</string>
+    <string name="cd_back">Back</string>
+    <string name="cd_hen_selected">Selected</string>
 </resources>

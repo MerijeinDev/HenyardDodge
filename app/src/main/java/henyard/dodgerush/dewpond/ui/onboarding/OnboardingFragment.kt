@@ -58,7 +58,7 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
         AppPrefs(requireContext()).onboardingSeen = true
         val nav = findNavController()
         if (nav.currentDestination?.id == R.id.onboardingFragment) {
-            nav.navigate(R.id.action_onboarding_to_menu)
+            nav.navigate(R.id.action_onboarding_to_choose_hen)
         }
     }
 

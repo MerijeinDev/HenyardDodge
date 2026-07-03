@@ -51,9 +51,21 @@
         android:label="Onboarding"
         tools:layout="@layout/fragment_onboarding">
         <action
-            android:id="@+id/action_onboarding_to_menu"
-            app:destination="@id/mainMenuFragment"
+            android:id="@+id/action_onboarding_to_choose_hen"
+            app:destination="@id/chooseYourHenFragment"
             app:popUpTo="@id/onboardingFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chooseYourHenFragment"
+        android:name="henyard.dodgerush.dewpond.ui.hen.ChooseYourHenFragment"
+        android:label="ChooseYourHen"
+        tools:layout="@layout/fragment_choose_your_hen">
+        <action
+            android:id="@+id/action_choose_hen_to_menu"
+            app:destination="@id/mainMenuFragment"
+            app:popUpTo="@id/chooseYourHenFragment"
             app:popUpToInclusive="true" />
     </fragment>
 
