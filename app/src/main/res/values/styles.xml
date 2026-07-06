@@ -218,7 +218,7 @@
         <item name="outlineWidth">2dp</item>
     </style>
 
-    <!-- Win / Game Over / Pause banner title: cream fill + dark-brown stroke (Figma). -->
+    <!-- Result / Game Over / Pause banner title: cream fill + dark-brown stroke (Figma). -->
     <style name="Text.Henyard.Outlined.ResultTitle">
         <item name="android:textColor">@color/result_title_fill</item>
         <item name="android:fontFamily">@font/fredoka_bold</item>
