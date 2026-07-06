@@ -1,7 +1,11 @@
 package henyard.dodgerush.dewpond.ui.notifications
 
 import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
@@ -9,6 +13,8 @@ import henyard.dodgerush.dewpond.R
 import henyard.dodgerush.dewpond.databinding.FragmentNotificationsBinding
 import henyard.dodgerush.dewpond.ui.base.ReinflatingFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
+import henyard.dodgerush.dewpond.util.applyDialogButtonStyle
+import henyard.dodgerush.dewpond.util.setClickSound
 
 /**
  * "Allow notifications" screen, shown after loading when the device is online.
@@ -22,14 +28,21 @@ class NotificationsFragment : ReinflatingFragment() {
 
     private val requestPermission = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
-    ) { proceedToMenu() }
+    ) { granted ->
+        // Remember that we've now surfaced the system prompt at least once, so a
+        // future tap can fall back to app settings instead of a no-op request.
+        if (!granted) AppPrefs(requireContext()).notifPermissionRequested = true
+        proceedToMenu()
+    }
 
     override fun onBindContent(content: View) {
         val binding = FragmentNotificationsBinding.bind(content)
         binding.btnAllow.label.text = getString(R.string.notif_allow)
-        binding.btnAllow.root.setOnClickListener { onAllow() }
+        binding.btnAllow.label.applyDialogButtonStyle(primary = true)
+        binding.btnAllow.root.setClickSound { onAllow() }
         binding.btnDeny.label.text = getString(R.string.notif_deny)
-        binding.btnDeny.root.setOnClickListener { proceedToMenu() }
+        binding.btnDeny.label.applyDialogButtonStyle(primary = false)
+        binding.btnDeny.root.setClickSound { proceedToMenu() }
     }
 
     private fun onAllow() {

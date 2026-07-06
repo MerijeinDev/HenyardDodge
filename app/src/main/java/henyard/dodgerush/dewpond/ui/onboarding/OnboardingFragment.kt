@@ -12,6 +12,7 @@ import henyard.dodgerush.dewpond.databinding.FragmentOnboardingBinding
 import henyard.dodgerush.dewpond.databinding.ItemOnboardingBinding
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
+import henyard.dodgerush.dewpond.util.setClickSound
 
 /**
  * First-run "how to play" tutorial (portrait). Three swipeable pages; the button
@@ -84,7 +85,7 @@ class OnboardingFragment : BaseFragment(R.layout.fragment_onboarding) {
             holder.binding.imageOb.setImageResource(page.imageRes)
             holder.binding.textOb.setText(page.textRes)
             holder.binding.btnNext.label.setText(page.labelRes)
-            holder.binding.btnNext.root.setOnClickListener {
+            holder.binding.btnNext.root.setClickSound {
                 onButtonClick(holder.bindingAdapterPosition)
             }
         }

@@ -29,4 +29,11 @@
     <dimen name="text_lb_name">15sp</dimen>
     <dimen name="text_lb_score">15sp</dimen>
     <dimen name="text_lb_tab">15sp</dimen>
+
+    <dimen name="text_dialog_message">16sp</dimen>
+    <dimen name="text_dialog_message_lg">20sp</dimen>
+    <dimen name="text_dialog_btn_primary">25sp</dimen>
+    <dimen name="text_dialog_btn_skip">15sp</dimen>
+    <dimen name="dialog_plate_width">362dp</dimen>
+    <dimen name="dialog_plate_height">144dp</dimen>
 </resources>

@@ -8,6 +8,8 @@ import henyard.dodgerush.dewpond.R
 import henyard.dodgerush.dewpond.databinding.FragmentNoInternetBinding
 import henyard.dodgerush.dewpond.ui.base.ReinflatingFragment
 import henyard.dodgerush.dewpond.util.NetworkUtils
+import henyard.dodgerush.dewpond.util.applyDialogButtonStyle
+import henyard.dodgerush.dewpond.util.setClickSound
 
 /**
  * "No internet" screen. Supports BOTH orientations (registered as a
@@ -30,7 +32,8 @@ class NoInternetFragment : ReinflatingFragment() {
     override fun onBindContent(content: View) {
         val binding = FragmentNoInternetBinding.bind(content).also { this.binding = it }
         binding.btnRestart.label.text = getString(R.string.restart)
-        binding.btnRestart.root.setOnClickListener { onRestart() }
+        binding.btnRestart.label.applyDialogButtonStyle(primary = true)
+        binding.btnRestart.root.setClickSound { onRestart() }
         // Restore the correct button state (e.g. after a rotation re-inflate).
         renderButton()
     }

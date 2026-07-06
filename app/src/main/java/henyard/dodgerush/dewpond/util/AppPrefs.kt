@@ -13,6 +13,16 @@ class AppPrefs(context: Context) {
         get() = prefs.getBoolean(KEY_ONBOARDING_SEEN, false)
         set(value) = prefs.edit().putBoolean(KEY_ONBOARDING_SEEN, value).apply()
 
+    /**
+     * Whether we've already launched the system notification-permission request
+     * at least once. Needed to tell "never asked" apart from "permanently
+     * denied", since [android.app.Activity.shouldShowRequestPermissionRationale]
+     * returns false in both cases.
+     */
+    var notifPermissionRequested: Boolean
+        get() = prefs.getBoolean(KEY_NOTIF_REQUESTED, false)
+        set(value) = prefs.edit().putBoolean(KEY_NOTIF_REQUESTED, value).apply()
+
     /** Index into [henyard.dodgerush.dewpond.game.HenCatalog.hens] of the chosen hen. */
     var selectedHenIndex: Int
         get() = prefs.getInt(KEY_HEN_INDEX, 0)
@@ -135,6 +145,7 @@ class AppPrefs(context: Context) {
     private companion object {
         const val NAME = "henyard_prefs"
         const val KEY_ONBOARDING_SEEN = "onboarding_seen"
+        const val KEY_NOTIF_REQUESTED = "notif_permission_requested"
         const val KEY_HEN_INDEX = "hen_index"
         const val KEY_NICKNAME = "nickname"
         const val KEY_UNLOCKED_LEVEL = "unlocked_level"

@@ -8,6 +8,7 @@ import henyard.dodgerush.dewpond.R
 import henyard.dodgerush.dewpond.databinding.ItemShopBinding
 import henyard.dodgerush.dewpond.game.ShopItem
 import henyard.dodgerush.dewpond.util.AppPrefs
+import henyard.dodgerush.dewpond.util.setClickSound
 
 /**
  * Renders a single page's [ShopItem]s as cards. [onBuy] performs the purchase
@@ -77,7 +78,7 @@ class ShopItemAdapter(
                     binding.priceCoin.visibility = View.GONE
                     binding.priceText.setText(R.string.shop_equip)
                     binding.priceButton.isClickable = true
-                    binding.priceButton.setOnClickListener {
+                    binding.priceButton.setClickSound {
                         onEquip(item)
                         bind(item)
                     }
@@ -86,7 +87,7 @@ class ShopItemAdapter(
                     binding.priceCoin.visibility = View.VISIBLE
                     binding.priceText.text = item.price.toString()
                     binding.priceButton.isClickable = true
-                    binding.priceButton.setOnClickListener { if (onBuy(item)) bind(item) }
+                    binding.priceButton.setClickSound { if (onBuy(item)) bind(item) }
                 }
             }
         }

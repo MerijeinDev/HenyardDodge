@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/sky_blue">
 
-    <!-- Full-bleed background -->
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -17,42 +16,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Figma landscape: loader centred at ~45% height, 306×44 -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glLoaderY"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.42" />
+        app:layout_constraintGuide_percent="0.45" />
 
     <FrameLayout
-        android:layout_width="300dp"
-        android:layout_height="52dp"
+        android:id="@+id/loaderBar"
+        android:layout_width="306dp"
+        android:layout_height="44dp"
+        android:background="@drawable/timer_pill"
+        android:contentDescription="@string/loading"
         app:layout_constraintBottom_toBottomOf="@id/glLoaderY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/glLoaderY">
+        app:layout_constraintTop_toTopOf="@id/glLoaderY" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@null"
-            android:scaleType="fitXY"
-            android:src="@drawable/loader_clear" />
-
-        <ImageView
-            android:id="@+id/loaderFill"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/loading"
-            android:scaleType="fitXY"
-            android:src="@drawable/loader_fill" />
-    </FrameLayout>
-
-    <!-- Landscape: smaller and pinned to the bottom-end corner. -->
+    <!-- Figma landscape: chicken bottom-end, ~224×279 -->
     <ImageView
         android:id="@+id/running_chicken"
-        android:layout_width="230dp"
-        android:layout_height="280dp"
+        android:layout_width="224dp"
+        android:layout_height="279dp"
         android:adjustViewBounds="true"
         android:contentDescription="@null"
         android:scaleType="fitCenter"

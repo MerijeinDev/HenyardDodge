@@ -55,4 +55,5 @@
     <color name="result_title_stroke">#FF571D08</color>
     <color name="result_stat_brown">#FF753B0F</color>
     <color name="timer_stroke">#FFB04B00</color>
+    <color name="btn_blue_stroke">#FF013071</color>
 </resources>

@@ -36,8 +36,8 @@
         app:layout_constraintTop_toTopOf="@id/glContentY">
 
         <FrameLayout
-            android:layout_width="330dp"
-            android:layout_height="150dp">
+            android:layout_width="@dimen/dialog_plate_width"
+            android:layout_height="@dimen/dialog_plate_height">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -46,30 +46,27 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/no_internet_table" />
 
-            <henyard.dodgerush.dewpond.widget.OutlineTextView
-                style="@style/Text.Henyard.Outlined"
-                android:layout_width="wrap_content"
+            <TextView
+                style="@style/Text.Henyard.DialogMessage"
+                android:layout_width="269dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:paddingHorizontal="42dp"
-                android:text="@string/notifications_message"
-                android:textSize="14sp"
-                app:outlineWidth="3dp" />
+                android:text="@string/notifications_message" />
         </FrameLayout>
 
         <include
             android:id="@+id/btnAllow"
             layout="@layout/widget_button_yellow"
-            android:layout_width="175dp"
-            android:layout_height="65dp"
+            android:layout_width="162dp"
+            android:layout_height="63dp"
             android:layout_marginTop="14dp" />
 
         <include
             android:id="@+id/btnDeny"
             layout="@layout/widget_button_blue"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="97dp"
+            android:layout_height="45dp"
             android:layout_marginTop="6dp" />
     </LinearLayout>
 

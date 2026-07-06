@@ -311,22 +311,20 @@
                         android:background="@drawable/score_state_row"
                         android:paddingHorizontal="16dp">
 
-                        <henyard.dodgerush.dewpond.widget.OutlineTextView
+                        <TextView
                             style="@style/Text.Henyard.ResultStatLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
                             android:text="@string/result_largest_no_hit"
-                            android:textSize="14sp"
-                            android:paddingHorizontal="2dp"/>
+                            android:textSize="14sp" />
 
-                        <henyard.dodgerush.dewpond.widget.OutlineTextView
+                        <TextView
                             android:id="@+id/resultNoHit"
-                            style="@style/Text.Henyard.ResultStatValue"
+                            style="@style/Text.Henyard.ResultStatValuePlain"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end|center_vertical"
-                            android:paddingHorizontal="2dp"
                             android:textSize="20sp"
                             tools:text="956" />
                     </FrameLayout>
@@ -338,22 +336,20 @@
                         android:background="@drawable/score_state_row"
                         android:paddingHorizontal="16dp">
 
-                        <henyard.dodgerush.dewpond.widget.OutlineTextView
+                        <TextView
                             style="@style/Text.Henyard.ResultStatLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|center_vertical"
                             android:text="@string/result_grain_collected"
-                            android:textSize="14sp"
-                            android:paddingHorizontal="2dp"/>
+                            android:textSize="14sp" />
 
-                        <henyard.dodgerush.dewpond.widget.OutlineTextView
+                        <TextView
                             android:id="@+id/resultGrain"
-                            style="@style/Text.Henyard.ResultStatValue"
+                            style="@style/Text.Henyard.ResultStatValuePlain"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end|center_vertical"
-                            android:paddingHorizontal="2dp"
                             android:textSize="20sp"
                             tools:text="99999" />
                     </FrameLayout>

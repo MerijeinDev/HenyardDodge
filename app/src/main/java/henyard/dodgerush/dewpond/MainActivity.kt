@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import henyard.dodgerush.dewpond.util.NetworkMonitor
+import henyard.dodgerush.dewpond.util.SoundManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+        SoundManager.init(applicationContext)
         hideSystemBars()
 
         val navHost = supportFragmentManager
@@ -60,6 +62,21 @@ class MainActivity : AppCompatActivity() {
         return current != null &&
             current != R.id.noInternetFragment &&
             current != R.id.splashFragment
+    }
+
+    override fun onStart() {
+        super.onStart()
+        SoundManager.resumeMusic(this)
+    }
+
+    override fun onStop() {
+        SoundManager.pauseMusic()
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        SoundManager.stopMusic(releasePlayer = true)
+        super.onDestroy()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

@@ -16,7 +16,7 @@ import henyard.dodgerush.dewpond.game.ShopItem
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
 import henyard.dodgerush.dewpond.util.SoundManager
-import henyard.dodgerush.dewpond.util.setClickSound
+import henyard.dodgerush.dewpond.util.setBackSound
 
 /**
  * Shop screen: horizontally swipeable pages, each a 3-column grid of power-up
@@ -33,7 +33,7 @@ class ShopFragment : BaseFragment(R.layout.fragment_shop) {
         binding = FragmentShopBinding.bind(view)
         prefs = AppPrefs(requireContext())
 
-        binding.btnBack.setClickSound { findNavController().popBackStack() }
+        binding.btnBack.setBackSound { findNavController().popBackStack() }
         updateBalance()
 
         val pages = ShopCatalog.pages

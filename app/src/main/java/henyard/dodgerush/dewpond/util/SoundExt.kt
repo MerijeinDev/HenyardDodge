@@ -13,3 +13,14 @@ fun View.setClickSound(action: (View) -> Unit) {
         action(it)
     }
 }
+
+/**
+ * Like [setClickSound] but plays the distinct back/close effect. Use on "back"
+ * and "close" buttons so navigating backwards sounds different from a forward tap.
+ */
+fun View.setBackSound(action: (View) -> Unit) {
+    setOnClickListener {
+        SoundManager.playSfx(context, SoundManager.Sfx.BACK)
+        action(it)
+    }
+}

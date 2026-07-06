@@ -15,6 +15,7 @@ import henyard.dodgerush.dewpond.game.Levels
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
 import henyard.dodgerush.dewpond.util.SoundManager
+import henyard.dodgerush.dewpond.util.setBackSound
 import henyard.dodgerush.dewpond.util.setClickSound
 
 /**
@@ -29,7 +30,7 @@ class LevelSelectFragment : BaseFragment(R.layout.fragment_level_select) {
         val binding = FragmentLevelSelectBinding.bind(view)
         val prefs = AppPrefs(requireContext())
 
-        binding.btnBack.setClickSound { findNavController().popBackStack() }
+        binding.btnBack.setBackSound { findNavController().popBackStack() }
 
         binding.levelGrid.layoutManager = GridLayoutManager(requireContext(), COLUMNS)
         binding.levelGrid.adapter = LevelAdapter(
@@ -104,7 +105,7 @@ class LevelSelectFragment : BaseFragment(R.layout.fragment_level_select) {
                 }
 
                 binding.tileContainer.isClickable = true
-                binding.tileContainer.setOnClickListener { onClick(level) }
+                binding.tileContainer.setClickSound { onClick(level) }
             }
         }
     }

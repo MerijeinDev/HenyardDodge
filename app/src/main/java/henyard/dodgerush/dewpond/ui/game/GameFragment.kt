@@ -19,6 +19,7 @@ import henyard.dodgerush.dewpond.ui.base.BaseFragment
 import henyard.dodgerush.dewpond.ui.level.LevelSelectFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
 import henyard.dodgerush.dewpond.util.SoundManager
+import henyard.dodgerush.dewpond.util.setBackSound
 import henyard.dodgerush.dewpond.util.setClickSound
 
 /**
@@ -64,10 +65,10 @@ class GameFragment : BaseFragment(R.layout.fragment_game), GameView.Listener {
         binding.btnPause.setClickSound { showPause() }
         binding.btnResume.root.setClickSound { hidePause() }
         binding.btnPauseReplay.root.setClickSound { retry() }
-        binding.btnPauseMenu.root.setClickSound { toMenu() }
+        binding.btnPauseMenu.root.setBackSound { toMenu() }
         binding.btnNext.root.setClickSound { goToLevel(level + 1) }
         binding.btnRetry.root.setClickSound { retry() }
-        binding.btnResultMenu.root.setClickSound { toMenu() }
+        binding.btnResultMenu.root.setBackSound { toMenu() }
 
         binding.btnResume.label.text = getString(R.string.pause_continue)
         binding.btnPauseReplay.label.text = getString(R.string.replay)
@@ -95,10 +96,16 @@ class GameFragment : BaseFragment(R.layout.fragment_game), GameView.Listener {
             })
     }
 
+    override fun onResume() {
+        super.onResume()
+        SoundManager.startGameMusic(requireContext())
+    }
+
     private fun showPause() {
         if (binding.resultOverlay.isShown) return
         binding.gameView.pauseGame()
         binding.pauseOverlay.visibility = View.VISIBLE
+        SoundManager.playSfx(requireContext(), SoundManager.Sfx.NOTIFY)
     }
 
     private fun hidePause() {
@@ -167,7 +174,7 @@ class GameFragment : BaseFragment(R.layout.fragment_game), GameView.Listener {
         val starViews = listOf(binding.star1, binding.star2, binding.star3)
         starViews.forEachIndexed { i, iv ->
             iv.setImageResource(
-                if (i < result.stars) R.drawable.star_active else R.drawable.star_inactive
+                if (result.cleared && i < result.stars) R.drawable.star_active else R.drawable.star_inactive
             )
         }
         binding.resultStars.visibility = if (result.cleared) View.VISIBLE else View.GONE

@@ -6,21 +6,20 @@ import android.media.MediaPlayer
 import android.media.SoundPool
 
 /**
- * Lightweight audio hub for the game. It is intentionally asset-agnostic:
- * sound effects and the background track are resolved from `res/raw` by name at
- * runtime, so the app compiles and runs with or without the audio files present.
- * Drop the matching `res/raw/<name>.(ogg|wav|mp3)` files in to make it audible
- * (see each [Sfx] entry and [MUSIC_RES] for the expected file names); playback
- * always respects the user's music/SFX toggles in [AppPrefs].
+ * Lightweight audio hub for the game. Sound effects and background tracks are
+ * resolved from `res/raw` by name at runtime (see each [Sfx] entry and
+ * [MusicTrack]). Playback respects the user's music/SFX toggles in [AppPrefs].
  *
- * Usage: call [init] once (e.g. from the Application/first screen), then
- * [playSfx] / [startMusic] / [stopMusic]. Call [release] when tearing down.
+ * Call [init] once at app start (e.g. [MainActivity.onCreate]); [playSfx] will
+ * lazily init if needed. Call [release] when tearing down.
  */
 object SoundManager {
 
     /** Named sound effects the game may trigger (asset = `res/raw/<resName>`). */
     enum class Sfx(val resName: String) {
         CLICK("click"),        // UI button tap
+        BACK("button_back"),   // back / close button
+        NOTIFY("notify"),      // popup / overlay appears
         COIN("coin"),          // coin pickup
         GRAIN("grain"),        // grain pickup ("чмок")
         BONUS("bonus"),        // power-up pickup ("ding")
@@ -34,47 +33,65 @@ object SoundManager {
         ERROR("error"),        // action refused (e.g. not enough coins)
     }
 
-    /** Background track for both the menu and gameplay (`res/raw/bg_music`). */
-    private const val MUSIC_RES = "bg_music"
+    /** Background loops: `music_menu` for hub screens, `music_game` in gameplay. */
+    enum class MusicTrack(val resName: String) {
+        MENU("music_menu"),
+        GAME("music_game"),
+    }
 
     private var soundPool: SoundPool? = null
     private val loaded = mutableMapOf<Sfx, Int>()
     private var music: MediaPlayer? = null
+    private var activeTrack: MusicTrack? = null
     private var initialized = false
+
+    // Cached once at init: reads stay live (SharedPreferences-backed) while
+    // avoiding a fresh AppPrefs allocation on every playSfx, which sits on the
+    // per-collision game-loop path.
+    private var prefs: AppPrefs? = null
 
     fun init(context: Context) {
         if (initialized) return
         initialized = true
+        prefs = AppPrefs(context.applicationContext)
         val attrs = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_GAME)
             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
             .build()
-        val pool = SoundPool.Builder().setMaxStreams(6).setAudioAttributes(attrs).build()
+        val pool = SoundPool.Builder().setMaxStreams(8).setAudioAttributes(attrs).build()
         soundPool = pool
         val app = context.applicationContext
-        for (sfx in Sfx.values()) {
+        for (sfx in Sfx.entries) {
             val resId = rawId(app, sfx.resName)
             if (resId != 0) loaded[sfx] = pool.load(app, resId, 1)
         }
     }
 
-    /** Plays a one-shot effect if SFX are enabled and the asset exists. */
+    /** Plays a one-shot effect if SFX are enabled and the asset is loaded. */
     fun playSfx(context: Context, sfx: Sfx) {
-        if (!AppPrefs(context).sfxEnabled) return
+        ensureInit(context)
+        if (prefs?.sfxEnabled != true) return
         val pool = soundPool ?: return
-        val id = loaded[sfx] ?: return
-        pool.play(id, 1f, 1f, 1, 0, 1f)
+        val sampleId = loaded[sfx] ?: return
+        pool.play(sampleId, 1f, 1f, 1, 0, 1f)
     }
 
-    /** Starts/loops the background track if music is enabled and present. */
-    fun startMusic(context: Context) {
-        if (!AppPrefs(context).musicEnabled) return
-        if (music != null) {
+    fun startMenuMusic(context: Context) = startMusic(context, MusicTrack.MENU)
+
+    fun startGameMusic(context: Context) = startMusic(context, MusicTrack.GAME)
+
+    /** Starts/loops a background track if music is enabled and the asset exists. */
+    fun startMusic(context: Context, track: MusicTrack = MusicTrack.MENU) {
+        ensureInit(context)
+        if (prefs?.musicEnabled != true) return
+        if (activeTrack == track) {
             music?.takeIf { !it.isPlaying }?.start()
             return
         }
+        stopMusic(releasePlayer = true)
+        activeTrack = track
         val app = context.applicationContext
-        val resId = rawId(app, MUSIC_RES)
+        val resId = rawId(app, track.resName)
         if (resId == 0) return
         music = MediaPlayer.create(app, resId)?.apply {
             isLooping = true
@@ -82,22 +99,56 @@ object SoundManager {
         }
     }
 
-    fun stopMusic() {
-        music?.let { if (it.isPlaying) it.pause() }
+    fun pauseMusic() {
+        music?.takeIf { it.isPlaying }?.pause()
+    }
+
+    /** Resumes the last background track after returning from background. */
+    fun resumeMusic(context: Context) {
+        ensureInit(context)
+        if (prefs?.musicEnabled != true) return
+        val track = activeTrack ?: return
+        if (music != null) {
+            music?.takeIf { !it.isPlaying }?.start()
+        } else {
+            startMusic(context, track)
+        }
+    }
+
+    fun stopMusic(releasePlayer: Boolean = false) {
+        music?.let { player ->
+            if (player.isPlaying) player.pause()
+            if (releasePlayer) {
+                player.release()
+                music = null
+                activeTrack = null
+            }
+        } ?: run {
+            if (releasePlayer) activeTrack = null
+        }
     }
 
     /** Reflects a change to the music toggle immediately. */
     fun applyMusicSetting(context: Context) {
-        if (AppPrefs(context).musicEnabled) startMusic(context) else stopMusic()
+        ensureInit(context)
+        if (prefs?.musicEnabled != true) {
+            stopMusic(releasePlayer = true)
+            return
+        }
+        startMusic(context, activeTrack ?: MusicTrack.MENU)
     }
 
     fun release() {
         soundPool?.release()
         soundPool = null
         loaded.clear()
-        music?.release()
-        music = null
+        stopMusic(releasePlayer = true)
+        prefs = null
         initialized = false
+    }
+
+    private fun ensureInit(context: Context) {
+        if (!initialized) init(context.applicationContext)
     }
 
     private fun rawId(context: Context, name: String): Int =

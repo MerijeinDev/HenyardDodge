@@ -48,13 +48,12 @@
                 android:src="@drawable/header_plate" />
 
             <henyard.dodgerush.dewpond.widget.OutlineTextView
-                style="@style/Text.Henyard.Outlined"
+                style="@style/Text.Henyard.Outlined.ShopHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/select_level"
-                android:textSize="22sp"
-                app:outlineWidth="3dp" />
+                android:textSize="24sp" />
         </FrameLayout>
 
         <!-- Level board -->

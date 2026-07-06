@@ -9,7 +9,7 @@ import henyard.dodgerush.dewpond.databinding.FragmentAchievementsBinding
 import henyard.dodgerush.dewpond.game.AchievementCatalog
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
-import henyard.dodgerush.dewpond.util.setClickSound
+import henyard.dodgerush.dewpond.util.setBackSound
 
 /** Achievements screen: a scrollable board listing every achievement with its
  * progress toward completion. */
@@ -21,7 +21,7 @@ class AchievementsFragment : BaseFragment(R.layout.fragment_achievements) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAchievementsBinding.bind(view)
 
-        binding.btnBack.setClickSound { findNavController().popBackStack() }
+        binding.btnBack.setBackSound { findNavController().popBackStack() }
 
         binding.achList.layoutManager = LinearLayoutManager(requireContext())
         binding.achList.adapter =

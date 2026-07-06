@@ -476,12 +476,7 @@ class GameView @JvmOverloads constructor(
     private fun endGame(cleared: Boolean) {
         if (finished) return
         finished = true
-        val stars = when {
-            !cleared -> 0
-            score >= 400 -> 3
-            score >= 200 -> 2
-            else -> 1
-        }
+        val stars = computeStars(cleared, score, hits)
         val result = GameResult(
             score = score,
             coinsCollected = coins,
@@ -496,6 +491,23 @@ class GameView @JvmOverloads constructor(
             longestNoHitSeconds = (longestNoHitMs / 1000).toInt(),
         )
         listener?.let { l -> post { l.onGameOver(result) } }
+    }
+
+    /**
+     * Star tiers scale with level length so 3★ stays reachable within the timer.
+     * 1★ = cleared, 2★ = solid run, 3★ = flawless or high score for the round.
+     */
+    private fun computeStars(cleared: Boolean, score: Int, hits: Int): Int {
+        if (!cleared) return 0
+        if (hits == 0) return 3
+        val durationSec = (levelDurationMs / 1000).coerceAtLeast(1)
+        val threeStarScore = durationSec * 6   // e.g. 180 pts on the 30s intro level
+        val twoStarScore = durationSec * 3     // e.g. 90 pts
+        return when {
+            score >= threeStarScore -> 3
+            score >= twoStarScore -> 2
+            else -> 1
+        }
     }
 
     // region draw

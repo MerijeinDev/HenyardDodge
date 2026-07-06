@@ -41,14 +41,14 @@
     <string name="result_grain_collected">Grain collected</string>
 
     <string name="no_internet_title">NO INTERNET</string>
-    <string name="no_internet_message">Please, check your internet\nconnection and restart</string>
+    <string name="no_internet_message">Please, check your internet connection and restart</string>
     <string name="restart">RESTART</string>
     <string name="checking">CHECKING</string>
     <string name="cd_no_internet">No internet connection</string>
 
-    <string name="notifications_message">Allow notifications to get the latest updates, tips and special offers straight to your device.</string>
-    <string name="notif_allow">I want!</string>
-    <string name="notif_deny">Skip</string>
+    <string name="notifications_message">Allow notifications about bonuses and promos. Stay tuned with best offers from our casino</string>
+    <string name="notif_allow">I WANT!</string>
+    <string name="notif_deny">SKIP</string>
     <string name="cd_notifications">Notifications</string>
 
     <string name="onboarding_1">Drag the hen around the yard with your finger.</string>

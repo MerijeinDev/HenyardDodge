@@ -37,8 +37,8 @@
         app:layout_constraintTop_toTopOf="@id/glContentY">
 
         <FrameLayout
-            android:layout_width="320dp"
-            android:layout_height="128dp">
+            android:layout_width="@dimen/dialog_plate_width"
+            android:layout_height="@dimen/dialog_plate_height">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -47,19 +47,18 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/no_internet_table" />
 
-            <henyard.dodgerush.dewpond.widget.OutlineTextView
-                style="@style/Text.Henyard.Outlined"
-                android:layout_width="wrap_content"
+            <TextView
+                style="@style/Text.Henyard.DialogMessage.Large"
+                android:layout_width="269dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_gravity="center"
-                android:text="@string/no_internet_message"
-                android:textSize="18sp" />
+                android:gravity="center"
+                android:text="@string/no_internet_message" />
         </FrameLayout>
 
         <FrameLayout
-            android:layout_width="200dp"
-            android:layout_height="62dp"
+            android:layout_width="162dp"
+            android:layout_height="63dp"
             android:layout_marginTop="22dp">
 
             <include

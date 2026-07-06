@@ -234,16 +234,29 @@
         <item name="fontFamily">@font/fredoka_bold</item>
     </style>
 
-    <!-- Result stat row value: white fill + brown stroke (Figma). -->
-    <style name="Text.Henyard.ResultStatValue" parent="Text.Henyard.Outlined">
-        <item name="android:textColor">@color/white</item>
-        <item name="outlineColor">@color/result_stat_brown</item>
-        <item name="outlineWidth">2dp</item>
+    <!-- Result stat row value: solid brown, semi-bold (Figma, no outline). -->
+    <style name="Text.Henyard.ResultStatValuePlain" parent="Text.Henyard">
+        <item name="android:textColor">@color/result_stat_brown</item>
+        <item name="android:fontFamily">@font/fredoka_semibold</item>
+        <item name="fontFamily">@font/fredoka_semibold</item>
     </style>
 
     <!-- Coin reward line: white fill + tan stroke (Figma #E6B66C). -->
     <style name="Text.Henyard.OutlinedYellow.Reward">
         <item name="outlineColor">@color/score_stroke</item>
+    </style>
+
+    <!-- Gray-screen dialog message on the wooden plate: solid brown, bold (Figma). -->
+    <style name="Text.Henyard.DialogMessage" parent="Text.Henyard">
+        <item name="android:textColor">@color/ach_text</item>
+        <item name="android:fontFamily">@font/fredoka_bold</item>
+        <item name="fontFamily">@font/fredoka_bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_dialog_message</item>
+    </style>
+
+    <style name="Text.Henyard.DialogMessage.Large">
+        <item name="android:textSize">@dimen/text_dialog_message_lg</item>
     </style>
 
     <!-- Splash running chicken position/size.

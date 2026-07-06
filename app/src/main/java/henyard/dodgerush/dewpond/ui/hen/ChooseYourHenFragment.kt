@@ -9,6 +9,7 @@ import henyard.dodgerush.dewpond.databinding.ItemHenCellBinding
 import henyard.dodgerush.dewpond.game.HenCatalog
 import henyard.dodgerush.dewpond.ui.base.BaseFragment
 import henyard.dodgerush.dewpond.util.AppPrefs
+import henyard.dodgerush.dewpond.util.setBackSound
 import henyard.dodgerush.dewpond.util.setClickSound
 
 /**
@@ -41,7 +42,7 @@ class ChooseYourHenFragment : BaseFragment(R.layout.fragment_choose_your_hen) {
 
         binding.btnConfirm.label.text = getString(R.string.confirm)
         binding.btnConfirm.root.setClickSound { confirm(binding) }
-        binding.btnBack.setClickSound { findNavController().popBackStack() }
+        binding.btnBack.setBackSound { findNavController().popBackStack() }
     }
 
     private fun select(index: Int) {

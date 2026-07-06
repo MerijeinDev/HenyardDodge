@@ -22,8 +22,6 @@ class MainMenuFragment : BaseFragment(R.layout.fragment_main_menu) {
         binding.coinsText.text = "%,d".format(AppPrefs(requireContext()).coins)
 
         SoundManager.init(requireContext())
-        SoundManager.startMusic(requireContext())
-
         binding.btnPlay.setClickSound {
             findNavController().navigate(R.id.action_menu_to_level_select)
         }
@@ -42,5 +40,10 @@ class MainMenuFragment : BaseFragment(R.layout.fragment_main_menu) {
         binding.btnLeaderboard.setClickSound {
             findNavController().navigate(R.id.action_menu_to_leaderboard)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        SoundManager.startMenuMusic(requireContext())
     }
 }

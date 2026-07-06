@@ -1,37 +1,55 @@
 package henyard.dodgerush.dewpond.ui.splash
 
 import android.animation.ValueAnimator
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
+import android.widget.FrameLayout
 import androidx.navigation.fragment.findNavController
 import henyard.dodgerush.dewpond.R
-import henyard.dodgerush.dewpond.databinding.FragmentSplashBinding
-import henyard.dodgerush.dewpond.ui.base.BaseFragment
+import henyard.dodgerush.dewpond.ui.base.ReinflatingFragment
 import henyard.dodgerush.dewpond.util.NetworkUtils
 
 /**
- * Loading screen. Shown in landscape (orientation is enforced centrally by
- * MainActivity for this destination). Shows the wooden progress bar filling up
- * (loader_clear + clipped loader_done).
+ * Loading screen. Free orientation (enforced centrally by MainActivity), so it
+ * swaps between its portrait and landscape layouts on rotation via
+ * [ReinflatingFragment]. Shows the wooden progress bar filling up
+ * (loader_clear + clipped loader_fill).
  */
-class SplashFragment : BaseFragment(R.layout.fragment_splash) {
+class SplashFragment : ReinflatingFragment() {
+
+    override val layoutRes = R.layout.fragment_splash
 
     private var navigated = false
     private var animator: ValueAnimator? = null
+    private var currentLevel = 0
+    private var loaderFill: Drawable? = null
+
+    override fun onBindContent(content: View) {
+        val bar = content.findViewById<FrameLayout>(R.id.loaderBar)
+        loaderFill = (bar.background as? LayerDrawable)
+            ?.findDrawableByLayerId(R.id.timer_fill)
+        loaderFill?.level = currentLevel
+        bar.invalidate()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentSplashBinding.bind(view)
 
-        binding.loaderFill.setImageLevel(0)
+        // Start the fill animation + navigation once. The activity handles config
+        // changes itself, so rotation re-inflates the layout (onBindContent) but
+        // does NOT recreate the fragment — the animator keeps running.
+        if (animator != null) return
 
         animator = ValueAnimator.ofInt(0, 10_000).apply {
             duration = 2200L
             interpolator = DecelerateInterpolator()
             addUpdateListener { a ->
-                val level = a.animatedValue as Int
-                binding.loaderFill.setImageLevel(level)
+                currentLevel = a.animatedValue as Int
+                loaderFill?.level = currentLevel
+                view.findViewById<View>(R.id.loaderBar)?.invalidate()
             }
             start()
         }
@@ -53,5 +71,6 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
         super.onDestroyView()
         animator?.cancel()
         animator = null
+        loaderFill = null
     }
 }

@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/sky_blue">
 
-    <!-- Full-bleed background -->
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -17,37 +16,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Loader sits on this horizontal guideline (percent → scales to any height) -->
+    <!-- Figma portrait: loader centred at ~39% height, 306×44 -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glLoaderY"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.46" />
+        app:layout_constraintGuide_percent="0.39" />
 
     <FrameLayout
-        android:layout_width="300dp"
-        android:layout_height="52dp"
+        android:id="@+id/loaderBar"
+        android:layout_width="306dp"
+        android:layout_height="44dp"
+        android:background="@drawable/timer_pill"
+        android:contentDescription="@string/loading"
         app:layout_constraintBottom_toBottomOf="@id/glLoaderY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/glLoaderY">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@null"
-            android:scaleType="fitXY"
-            android:src="@drawable/loader_clear" />
-
-        <ImageView
-            android:id="@+id/loaderFill"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/loading"
-            android:scaleType="fitXY"
-            android:src="@drawable/loader_fill" />
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="@id/glLoaderY" />
 
     <ImageView
         android:id="@+id/running_chicken"
